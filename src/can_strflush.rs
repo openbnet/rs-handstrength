@@ -10,7 +10,7 @@ pub fn can_have_straight_flush(comcards: &Vec<Card>) -> CanHaveCombis {
     println!("flush suit {:?}", flushsuit);
     if let Some(flush_suit) = can_flush(&sorted) {
         let flush_suit_cards = add_ace_as_high(
-            sorted.iter()
+            &sorted.iter()
                   .filter(|card| card.suit == flush_suit)
                   .cloned()
                   .collect()

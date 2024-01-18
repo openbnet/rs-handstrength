@@ -1,0 +1,134 @@
+---
+source: src/tests/can_have_fullhouse.rs
+expression: fh_combis
+---
+[
+    (
+        [
+            Card {
+                value: 10,
+                suit: S,
+            },
+            Card {
+                value: 10,
+                suit: H,
+            },
+            Card {
+                value: 10,
+                suit: D,
+            },
+        ],
+        [
+            [
+                Card {
+                    value: 14,
+                    suit: A,
+                },
+                Card {
+                    value: 14,
+                    suit: A,
+                },
+            ],
+            [
+                Card {
+                    value: 13,
+                    suit: A,
+                },
+                Card {
+                    value: 13,
+                    suit: A,
+                },
+            ],
+            [
+                Card {
+                    value: 12,
+                    suit: A,
+                },
+                Card {
+                    value: 12,
+                    suit: A,
+                },
+            ],
+            [
+                Card {
+                    value: 9,
+                    suit: A,
+                },
+                Card {
+                    value: 9,
+                    suit: A,
+                },
+            ],
+            [
+                Card {
+                    value: 8,
+                    suit: A,
+                },
+                Card {
+                    value: 8,
+                    suit: A,
+                },
+            ],
+            [
+                Card {
+                    value: 7,
+                    suit: A,
+                },
+                Card {
+                    value: 7,
+                    suit: A,
+                },
+            ],
+            [
+                Card {
+                    value: 6,
+                    suit: A,
+                },
+                Card {
+                    value: 6,
+                    suit: A,
+                },
+            ],
+            [
+                Card {
+                    value: 5,
+                    suit: A,
+                },
+                Card {
+                    value: 5,
+                    suit: A,
+                },
+            ],
+            [
+                Card {
+                    value: 4,
+                    suit: A,
+                },
+                Card {
+                    value: 4,
+                    suit: A,
+                },
+            ],
+            [
+                Card {
+                    value: 3,
+                    suit: A,
+                },
+                Card {
+                    value: 3,
+                    suit: A,
+                },
+            ],
+            [
+                Card {
+                    value: 2,
+                    suit: A,
+                },
+                Card {
+                    value: 2,
+                    suit: A,
+                },
+            ],
+        ],
+    ),
+]

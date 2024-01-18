@@ -8,5 +8,6 @@ mod can_libs;
 pub use can_libs::*;
 mod can_strflush;
 pub use can_strflush::*;
-
+mod can_fullhouse;
+pub use can_fullhouse::*;
 mod tests;

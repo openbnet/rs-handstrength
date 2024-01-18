@@ -34,15 +34,27 @@ pub fn calculate_gaps(sorted_combination: &[Card]) -> (u8, Vec<Vec<u8>>) {
 
     (num_gaps as u8, gaps)
 }
-pub fn add_ace_as_high(cards: Vec<Card>) -> Vec<Card> {
+pub fn add_ace_as_high(cards: &Vec<Card>) -> Vec<Card> {
     let mut modified_cards = cards.clone();
 
     // For each Ace, add an additional Ace with value 14 and the same suit
     for card in cards.iter().filter(|&card| card.value == 1) {
-        modified_cards.push(Card { value: 14, suit: card.suit });
+        modified_cards.insert(0, Card { value: 14, suit: card.suit });
     }
 
-    // Sort the modified cards in descending order
-    modified_cards.sort_by(|a, b| b.value.cmp(&a.value).then_with(|| a.suit.cmp(&b.suit)));
+    modified_cards
+}
+pub fn replace_ace_as_high(cards: &Vec<Card>) -> Vec<Card> {
+    let mut modified_cards = Vec::new();
+
+    // For each Ace, add an additional Ace with value 14 and the same suit
+    for card in cards.iter() {
+        if card.value != 1 {
+            modified_cards.push(card.clone());
+        } else {
+            modified_cards.insert(0, Card { value: 14, suit: card.suit });
+        }
+
+    }
     modified_cards
 }

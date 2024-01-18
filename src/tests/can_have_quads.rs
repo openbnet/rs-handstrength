@@ -4,6 +4,7 @@
 mod tests {
     use crate::card::{Card, Suit};
     use crate::can_quads::can_have_quads;
+    use insta::assert_debug_snapshot;
     #[test]
     fn quads_with_trips_board() {
         let cards = vec![
@@ -17,12 +18,13 @@ mod tests {
         let quads_combinations = can_have_quads(&cards);
         println!("quads_combinations, {:?}", quads_combinations);
         // Check for 13 possible combinations (excluding 10)
-        assert_eq!(quads_combinations.len(), 13);
-
-        for combo in &quads_combinations {
+        assert_eq!(quads_combinations.len(), 1);
+        println!("first board {:?}", quads_combinations[0].1);
+        for combo in &quads_combinations[0].1 {
             assert_eq!(combo[0].value, 10); // The value of the trips
             assert_ne!(combo[1].value, 10); // The additional card is not the same as the trips' value
         }
+        assert_debug_snapshot!(quads_combinations)
     }
     #[test]
     fn quads_with_no_pair_board() {
@@ -49,7 +51,9 @@ mod tests {
     
         let quads_combinations = can_have_quads(&cards);
         assert_eq!(quads_combinations.len(), 1, "Should be one quads combination");
-        assert_eq!(quads_combinations[0].len(), 2, "Combination should have two cards");
+        println!("quads_combinations {:?}", quads_combinations[0].1);
+        assert_eq!(quads_combinations[0].1.len(), 1, "Combination one hand");
+        assert_debug_snapshot!(quads_combinations)
     }
     #[test]
     fn quads_with_two_pair_board() {
@@ -63,6 +67,8 @@ mod tests {
     
         let quads_combinations = can_have_quads(&cards);
         assert_eq!(quads_combinations.len(), 2, "Should be two quads combinations");
+        println!("quads_combinations {:?}", quads_combinations);
+        assert_debug_snapshot!(quads_combinations)
     }
      
 }
