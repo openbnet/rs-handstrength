@@ -1,0 +1,34 @@
+---
+source: src/tests/can_have_strflush.rs
+expression: can_have
+---
+[
+    (
+        [
+            Card {
+                value: 4,
+                suit: S,
+            },
+            Card {
+                value: 2,
+                suit: S,
+            },
+            Card {
+                value: 1,
+                suit: S,
+            },
+        ],
+        [
+            [
+                Card {
+                    value: 5,
+                    suit: S,
+                },
+                Card {
+                    value: 3,
+                    suit: S,
+                },
+            ],
+        ],
+    ),
+]
