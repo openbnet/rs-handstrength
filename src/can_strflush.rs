@@ -49,21 +49,45 @@ pub fn can_have_straight_flush(comcards: &Vec<Card>) -> CanHaveCombis {
 pub fn handle_ace_low(combinations: CanHaveCombis) -> CanHaveCombis {
     let mut modified_combinations: CanHaveCombis = Vec::new();
 
-    for (straight_flush_combination, mut blocking_combinations) in combinations {
-        // Apply handle_ace_low logic to each blocking_combinations vector
-        blocking_combinations.sort_by(|a, b| {
-            let contains_ace_a = a.iter().any(|card| card.value == 1 || card.value == 14);
-            let contains_ace_b = b.iter().any(|card| card.value == 1 || card.value == 14);
-            contains_ace_b.cmp(&contains_ace_a) // Prioritize combinations with Ace
-        });
+    for (straight_flush_combination, blocking_combinations) in combinations {
+        let mut modified_blocking_combinations = Vec::new();
 
-        modified_combinations.push((straight_flush_combination, blocking_combinations));
+        for combo in blocking_combinations {
+            // Check if the combination contains an Ace (value 1 or 14)
+            let contains_ace = combo.iter().flatten().any(|card| card.value == 1 || card.value == 14);
+
+            if contains_ace {
+                let mut ace_low_combo = combo.clone();
+                let mut ace_high_combo = combo.clone();
+                
+                for cards in &mut ace_low_combo {
+                    for card in cards {
+                        if card.value == 14 { card.value = 1; }
+                    }
+                }
+                for cards in &mut ace_high_combo {
+                    for card in cards {
+                        if card.value == 1 { card.value = 14; }
+                    }
+                }
+
+                modified_blocking_combinations.push(ace_low_combo);
+                modified_blocking_combinations.push(ace_high_combo);
+            } else {
+                modified_blocking_combinations.push(combo);
+            }
+        }
+
+        // Deduplicate the combinations
+        modified_blocking_combinations.sort();
+        modified_blocking_combinations.dedup();
+
+        modified_combinations.push((straight_flush_combination, modified_blocking_combinations));
     }
 
     modified_combinations
 }
-
-pub fn is_blocked(straight_flush_cards: &[Card],all_flush_cards: &Vec<Card>, gaps: (u8, Vec<Vec<u8>>)) -> Result<Vec<Vec<Card>>, bool> {
+pub fn is_blocked(straight_flush_cards: &[Card],all_flush_cards: &Vec<Card>, gaps: (u8, Vec<Vec<u8>>)) -> Result<Vec<SameRankHands>, bool> {
     if gaps.0 > 2 {
         return Err(true); // Too many gaps, blocked by default
     }
@@ -84,22 +108,22 @@ pub fn is_blocked(straight_flush_cards: &[Card],all_flush_cards: &Vec<Card>, gap
             let mut possible = Vec::new();
             println!("0 gapper {:?} {:?}", values, not_my_values);
             if !not_my_values.contains(&(highest + 1)) && !not_my_values.contains(&(highest + 2)) {
-                possible.push(vec![
+                possible.push(vec![vec![
                     Card { value: highest + 1, suit },
                     Card { value: highest + 2, suit },
-                ]);
+                ]]);
             }
             if lowest > 1 && highest < 14 && !not_my_values.contains(&(lowest - 1)) && !not_my_values.contains(&(highest +1)) {
-                possible.push(vec![
+                possible.push(vec![vec![
                     Card { value: highest + 1, suit },
                     Card { value: lowest - 1, suit },
-                ]); 
+                ]]); 
             }
             if lowest > 2 && !not_my_values.contains(&(lowest - 1)) && !not_my_values.contains(&(lowest - 2)) {
-                possible.push(vec![
+                possible.push(vec![vec![
                     Card { value: lowest - 1, suit },
                     Card { value: lowest - 2, suit },
-                ]);
+                ]]);
             }
 
             if possible.is_empty() { Err(true) } else { Ok(possible) }
@@ -112,16 +136,16 @@ pub fn is_blocked(straight_flush_cards: &[Card],all_flush_cards: &Vec<Card>, gap
             } else {
                 let mut possible = Vec::new();
                 if highest < 14 && !not_my_values.contains(&(highest + 1)) {
-                    possible.push(vec![
+                    possible.push(vec![vec![
                         Card { value: highest + 1, suit },
                         Card { value: gap_value, suit },
-                    ]);
+                    ]]);
                 }
                 if lowest > 1 && !not_my_values.contains(&(lowest - 1)) {
-                    possible.push(vec![
+                    possible.push(vec![vec![
                         Card { value: gap_value, suit },
                         Card { value: lowest - 1, suit },
-                    ]);
+                    ]]);
                 }
                 if possible.is_empty() { Err(true) } else { Ok(possible) }
             }
@@ -145,7 +169,9 @@ pub fn is_blocked(straight_flush_cards: &[Card],all_flush_cards: &Vec<Card>, gap
                 possible.push(Card { value: second_gap[0], suit });
             }
 
-            if possible.is_empty() { Err(true) } else { Ok(vec![possible]) }
+            if possible.is_empty() { Err(true) } else { Ok(
+                vec![vec![possible]]
+            ) }
         },
         _ => Err(true) // Any other case is considered blocked
     }

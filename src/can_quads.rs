@@ -14,9 +14,10 @@ pub fn can_have_quads(cards: &[Card]) -> CanHaveCombis {
                 for val in (2..=14).rev() {
                     if val != card_value {
                         hand_matchers.push(
-                            vec![
+                            vec![vec![
                             Card { value: card_value, suit: Suit::A },
-                            Card { value: if val == 14 { 1 } else { val }, suit: Suit::A }]);
+                            Card { value: if val == 14 { 1 } else { val }, suit: Suit::A }]
+                        ]);
                     }
                 }
                 println!("hand_matchers {:?}", hand_matchers);
@@ -29,10 +30,10 @@ pub fn can_have_quads(cards: &[Card]) -> CanHaveCombis {
                 // One pair on the board
                 quads_combinations.push((
                     group,
-                    vec![vec![
+                    vec![vec![vec![
                     Card { value: card_value, suit: Suit::A },
                     Card { value: card_value, suit: Suit::A }
-                ]]));
+                ]]]));
             }
             _ => {}
         }

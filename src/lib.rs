@@ -10,4 +10,8 @@ mod can_strflush;
 pub use can_strflush::*;
 mod can_fullhouse;
 pub use can_fullhouse::*;
+mod can_flush;
+pub use can_flush::*;
+mod can_str;
+pub use can_str::*;
 mod tests;
