@@ -18,4 +18,6 @@ mod can_trips;
 pub use can_trips::*;
 mod can_twopair;
 pub use can_twopair::*;
+mod can_pair;
+pub use can_pair::*;
 mod tests;
