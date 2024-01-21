@@ -1,25 +1,56 @@
 ---
-source: src/tests/can_have_str.rs
-assertion_line: 53
-expression: str_combis
+source: src/tests/can_have_trips.rs
+expression: trip_combis
 ---
 [
     (
         [
             Card {
-                value: 1,
-                suit: S,
-            },
-            Card {
-                value: 2,
-                suit: S,
-            },
-            Card {
-                value: 3,
+                value: 10,
                 suit: H,
             },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+    (
+        [
             Card {
-                value: 4,
+                value: 9,
+                suit: D,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 9,
+                        suit: A,
+                    },
+                    Card {
+                        value: 9,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+    (
+        [
+            Card {
+                value: 8,
                 suit: C,
             },
         ],
@@ -27,42 +58,34 @@ expression: str_combis
             [
                 [
                     Card {
-                        value: 5,
+                        value: 8,
                         suit: A,
                     },
                     Card {
-                        value: 1,
-                        suit: S,
-                    },
-                ],
-                [
-                    Card {
-                        value: 5,
+                        value: 8,
                         suit: A,
                     },
-                    Card {
-                        value: 2,
-                        suit: S,
-                    },
                 ],
+            ],
+        ],
+    ),
+    (
+        [
+            Card {
+                value: 3,
+                suit: S,
+            },
+        ],
+        [
+            [
                 [
                     Card {
-                        value: 5,
+                        value: 3,
                         suit: A,
                     },
                     Card {
                         value: 3,
-                        suit: H,
-                    },
-                ],
-                [
-                    Card {
-                        value: 5,
                         suit: A,
-                    },
-                    Card {
-                        value: 4,
-                        suit: C,
                     },
                 ],
             ],
@@ -74,24 +97,16 @@ expression: str_combis
                 value: 2,
                 suit: S,
             },
-            Card {
-                value: 3,
-                suit: H,
-            },
-            Card {
-                value: 4,
-                suit: C,
-            },
         ],
         [
             [
                 [
                     Card {
-                        value: 5,
+                        value: 2,
                         suit: A,
                     },
                     Card {
-                        value: 6,
+                        value: 2,
                         suit: A,
                     },
                 ],

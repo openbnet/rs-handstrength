@@ -4,4 +4,6 @@
 // mod can_have_strflush;
 // mod can_have_fullhouse;
 // mod can_flush;
-mod can_have_str;
+// mod can_have_str;
+// mod can_have_trips;
+mod can_have_twopairs;

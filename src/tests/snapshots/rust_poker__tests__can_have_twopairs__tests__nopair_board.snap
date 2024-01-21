@@ -1,0 +1,152 @@
+---
+source: src/tests/can_have_twopairs.rs
+expression: combis
+---
+[
+    (
+        [
+            Card {
+                value: 14,
+                suit: H,
+            },
+            Card {
+                value: 8,
+                suit: D,
+            },
+            Card {
+                value: 10,
+                suit: C,
+            },
+            Card {
+                value: 2,
+                suit: S,
+            },
+            Card {
+                value: 3,
+                suit: S,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 14,
+                        suit: A,
+                    },
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 14,
+                        suit: A,
+                    },
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 14,
+                        suit: A,
+                    },
+                    Card {
+                        value: 3,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 14,
+                        suit: A,
+                    },
+                    Card {
+                        value: 2,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                    Card {
+                        value: 3,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                    Card {
+                        value: 2,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                    Card {
+                        value: 3,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                    Card {
+                        value: 2,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 3,
+                        suit: A,
+                    },
+                    Card {
+                        value: 2,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+]

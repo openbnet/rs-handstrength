@@ -14,4 +14,8 @@ mod can_flush;
 pub use can_flush::*;
 mod can_str;
 pub use can_str::*;
+mod can_trips;
+pub use can_trips::*;
+mod can_twopair;
+pub use can_twopair::*;
 mod tests;
