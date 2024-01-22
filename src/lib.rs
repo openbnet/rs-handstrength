@@ -20,4 +20,6 @@ mod can_twopair;
 pub use can_twopair::*;
 mod can_pair;
 pub use can_pair::*;
+mod can_highcard;
+pub use can_highcard::*;
 mod tests;
