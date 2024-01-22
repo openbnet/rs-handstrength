@@ -6,16 +6,16 @@ mod tests {
     use crate::sorting::{sort_cards, get_same_value_map};
     #[test]
     fn test_sort_fixed_size_array() {
-        let cards: [Card; 4] = [
+        let cards = vec![
             Card { value: 10, suit: Suit::H },
             Card { value: 4, suit: Suit::D },
             Card { value: 5, suit: Suit::C },
             Card { value: 5, suit: Suit::S },
         ];
-        let sorted_cards = sort_cards(cards);
+        let sorted_cards = sort_cards(&cards);
 
         // Adjust the expected order to match the sorting logic
-        let expected: [Card; 4] = [
+        let expected = vec![
             Card { value: 10, suit: Suit::H },
             Card { value: 5, suit: Suit::S },
             Card { value: 5, suit: Suit::C },

@@ -20,14 +20,16 @@ expression: fh_combis
         ],
         [
             [
-                Card {
-                    value: 14,
-                    suit: A,
-                },
-                Card {
-                    value: 10,
-                    suit: A,
-                },
+                [
+                    Card {
+                        value: 14,
+                        suit: A,
+                    },
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                ],
             ],
         ],
     ),
@@ -48,14 +50,16 @@ expression: fh_combis
         ],
         [
             [
-                Card {
-                    value: 14,
-                    suit: A,
-                },
-                Card {
-                    value: 4,
-                    suit: A,
-                },
+                [
+                    Card {
+                        value: 14,
+                        suit: A,
+                    },
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                ],
             ],
         ],
     ),
@@ -76,14 +80,16 @@ expression: fh_combis
         ],
         [
             [
-                Card {
-                    value: 10,
-                    suit: A,
-                },
-                Card {
-                    value: 4,
-                    suit: A,
-                },
+                [
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                ],
             ],
         ],
     ),
@@ -104,14 +110,16 @@ expression: fh_combis
         ],
         [
             [
-                Card {
-                    value: 4,
-                    suit: A,
-                },
-                Card {
-                    value: 4,
-                    suit: A,
-                },
+                [
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                ],
             ],
         ],
     ),
