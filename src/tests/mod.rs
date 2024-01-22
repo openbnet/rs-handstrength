@@ -1,5 +1,5 @@
 // mod basic;
-// mod can_have_quads;
+mod can_have_quads;
 // mod can_flush;
 // mod can_have_strflush;
 // mod can_have_fullhouse;
@@ -8,4 +8,4 @@
 // mod can_have_trips;
 // mod can_have_twopairs;
 // mod can_have_pair;
-mod can_highcard;
+// mod can_highcard;

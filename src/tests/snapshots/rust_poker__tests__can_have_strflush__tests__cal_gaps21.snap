@@ -5,14 +5,16 @@ expression: blocked
 Ok(
     [
         [
-            Card {
-                value: 4,
-                suit: S,
-            },
-            Card {
-                value: 3,
-                suit: S,
-            },
+            [
+                Card {
+                    value: 4,
+                    suit: S,
+                },
+                Card {
+                    value: 3,
+                    suit: S,
+                },
+            ],
         ],
     ],
 )

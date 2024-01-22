@@ -15,7 +15,6 @@ pub fn can_have_straight_flush(comcards: &Vec<Card>) -> CanHaveCombis {
                   .cloned()
                   .collect()
         );
-        print!("flush suit cards");
         let length = flush_suit_cards.len();
         for i in 0..length {
       
@@ -51,29 +50,21 @@ pub fn handle_ace_low(combinations: CanHaveCombis) -> CanHaveCombis {
 
     for (straight_flush_combination, blocking_combinations) in combinations {
         let mut modified_blocking_combinations = Vec::new();
+        let contains_ace_high = straight_flush_combination.iter().any(|card| card.value == 14);
+        let contains_ace_low = straight_flush_combination.iter().any(|card| card.value == 1);
 
         for combo in blocking_combinations {
-            // Check if the combination contains an Ace (value 1 or 14)
-            let contains_ace = combo.iter().flatten().any(|card| card.value == 1 || card.value == 14);
-
-            if contains_ace {
-                let mut ace_low_combo = combo.clone();
-                let mut ace_high_combo = combo.clone();
-                
-                for cards in &mut ace_low_combo {
-                    for card in cards {
-                        if card.value == 14 { card.value = 1; }
-                    }
-                }
-                for cards in &mut ace_high_combo {
-                    for card in cards {
-                        if card.value == 1 { card.value = 14; }
-                    }
-                }
-
-                modified_blocking_combinations.push(ace_low_combo);
+            // Handle Ace as high (14) or low (1), but not both
+            if contains_ace_high {
+                // Convert Ace to high if it's part of the combination
+                let ace_high_combo = convert_ace_to_high(&combo);
                 modified_blocking_combinations.push(ace_high_combo);
+            } else if contains_ace_low {
+                // Convert Ace to low if it's part of the combination
+                let ace_low_combo = convert_ace_to_low(&combo);
+                modified_blocking_combinations.push(ace_low_combo);
             } else {
+                // If no Ace is involved, keep the combination as is
                 modified_blocking_combinations.push(combo);
             }
         }
@@ -87,6 +78,24 @@ pub fn handle_ace_low(combinations: CanHaveCombis) -> CanHaveCombis {
 
     modified_combinations
 }
+
+// Helper functions to convert Ace to high or low
+fn convert_ace_to_high(combo: &Vec<CardHand>) -> Vec<CardHand> {
+    combo.iter().map(|hand| {
+        hand.iter().map(|card| {
+            if card.value == 1 { Card { value: 14, suit: card.suit } } else { *card }
+        }).collect()
+    }).collect()
+}
+
+fn convert_ace_to_low(combo: &Vec<CardHand>) -> Vec<CardHand> {
+    combo.iter().map(|hand| {
+        hand.iter().map(|card| {
+            if card.value == 14 { Card { value: 1, suit: card.suit } } else { *card }
+        }).collect()
+    }).collect()
+}
+
 pub fn is_blocked(straight_flush_cards: &[Card],all_flush_cards: &Vec<Card>, gaps: (u8, Vec<Vec<u8>>)) -> Result<Vec<SameRankHands>, bool> {
     if gaps.0 > 2 {
         return Err(true); // Too many gaps, blocked by default

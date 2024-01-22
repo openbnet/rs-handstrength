@@ -22,4 +22,6 @@ mod can_pair;
 pub use can_pair::*;
 mod can_highcard;
 pub use can_highcard::*;
+mod get_nut_rank;
+pub use get_nut_rank::*;
 mod tests;

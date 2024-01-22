@@ -20,14 +20,16 @@ expression: can_have
         ],
         [
             [
-                Card {
-                    value: 5,
-                    suit: S,
-                },
-                Card {
-                    value: 3,
-                    suit: S,
-                },
+                [
+                    Card {
+                        value: 5,
+                        suit: S,
+                    },
+                    Card {
+                        value: 3,
+                        suit: S,
+                    },
+                ],
             ],
         ],
     ),

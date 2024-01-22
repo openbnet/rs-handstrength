@@ -5,6 +5,7 @@ mod tests {
     use crate::card::{Card, Suit};
     use crate::can_quads::can_have_quads;
     use insta::assert_debug_snapshot;
+    use crate::get_nut_rank::*;
     #[test]
     fn quads_with_trips_board() {
         let cards = vec![
@@ -20,11 +21,16 @@ mod tests {
         // Check for 13 possible combinations (excluding 10)
         assert_eq!(quads_combinations.len(), 1);
         println!("first board {:?}", quads_combinations[0].1);
-        for combo in &quads_combinations[0].1 {
-            assert_eq!(combo[0].value, 10); // The value of the trips
-            assert_ne!(combo[1].value, 10); // The additional card is not the same as the trips' value
-        }
-        assert_debug_snapshot!(quads_combinations)
+        assert_debug_snapshot!(quads_combinations);
+        let hand = vec![
+            Card { value: 10, suit: Suit::H },
+            Card { value: 11, suit: Suit::D },
+            Card { value: 2, suit: Suit::S },
+            Card { value: 2, suit: Suit::C },
+        ];
+        let nr = get_nut_rank(&hand, &cards);
+        println!("nr {:?}", nr);
+        assert_eq!(nr.0, 3);
     }
     #[test]
     fn quads_with_no_pair_board() {

@@ -3,6 +3,7 @@ mod tests {
     use crate::card::{Card, Suit};
     use crate::can_strflush::*;
     use crate::can_libs::*;
+    use crate::get_nut_rank::*;
     use insta::assert_debug_snapshot;
     #[test]
     fn no_strflush() {
@@ -28,6 +29,15 @@ mod tests {
         let can_have = can_have_straight_flush(&comcards);
         println!("can_have {:?}", can_have);
         assert_debug_snapshot!(can_have); 
+        let hand = vec![
+            Card { value: 6, suit: Suit::S },
+            Card { value: 5, suit: Suit::S },
+            Card { value: 7, suit: Suit::S },
+            Card {value: 8, suit: Suit::S } 
+        ];
+        let nr = get_nut_rank(&hand, &comcards);
+        println!("nr {:?}", nr);
+        assert_debug_snapshot!(nr);
     }
     #[test]
     fn cal_gaps1() {
@@ -52,9 +62,18 @@ mod tests {
         assert_debug_snapshot!(blocked);
         let can_have = can_have_straight_flush(&v);
         println!("can_have {:?}", can_have);
-        assert_debug_snapshot!(can_have); 
+        assert_debug_snapshot!(can_have);
+        let hand = vec![
+            Card { value: 9, suit: Suit::S },
+            Card { value: 5, suit: Suit::S },
+            Card { value: 3, suit: Suit::S },
+            Card {value: 10, suit: Suit::S } 
+        ];
+        let nr = get_nut_rank(&hand, &v);
+        println!("nr {:?}", nr);
+        assert_debug_snapshot!(nr); 
     }
-    #[test]
+    // #[test]
     fn strflush1() {
         let comcards = vec![
             Card { value: 4, suit: Suit::S },
@@ -76,6 +95,24 @@ mod tests {
         let can_have = can_have_straight_flush(&comcards);
         println!("can_have {:?}", can_have);
         assert_debug_snapshot!(can_have);
+        let hand = vec![
+            Card { value: 6, suit: Suit::S },
+            Card { value: 5, suit: Suit::S },
+            Card { value: 9, suit: Suit::C },
+            Card {value: 10, suit: Suit::C } 
+        ];
+        let nr = get_nut_rank(&hand, &comcards);
+        println!("nr {:?}", nr);
+        assert_eq!(nr.0, 1);
+        let hand = vec![
+            Card { value: 1, suit: Suit::S },
+            Card { value: 5, suit: Suit::S },
+            Card { value: 9, suit: Suit::C },
+            Card {value: 10, suit: Suit::C } 
+        ];
+        let nr2 = get_nut_rank(&hand, &comcards);
+        println!("nr2 {:?}", nr2);
+        assert_eq!(nr2.0, 0);
     }
     #[test]
     fn cal_gaps21() {

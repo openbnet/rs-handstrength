@@ -16,14 +16,16 @@ expression: quads_combinations
         ],
         [
             [
-                Card {
-                    value: 10,
-                    suit: A,
-                },
-                Card {
-                    value: 10,
-                    suit: A,
-                },
+                [
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                ],
             ],
         ],
     ),
