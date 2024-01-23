@@ -4,7 +4,6 @@ use crate::card::{Card, Suit};
 use std::collections::HashSet;
 use itertools::Itertools;
 pub fn get_remaining_cards(player_hands: &Vec<Vec<Card>>, board: &Vec<Card>) -> Vec<Card> {
-    let mut deck = create_full_deck();
     let mut allp_cards = player_hands.iter().flatten().cloned().collect::<Vec<Card>>();
     allp_cards.extend(board);
     let mut remaining = create_full_deck();
@@ -25,13 +24,12 @@ fn create_full_deck() -> Vec<Card> {
     deck
 }
 // Function to calculate the equity for each set of player cards
-fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<Card>) -> HashMap<usize, f64> {
-    let mut equities: HashMap<usize, f64> = HashMap::new();
+fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<Card>) -> Vec<f64> {
+    let mut equities = vec![0.0; player_hands.len()];
     let mut win_counts: HashMap<usize, u32> = HashMap::new();
     let mut tie_counts: HashMap<usize, u32> = HashMap::new();
     let mut total_outcomes = 0;
 
-    // Generate all unique pairs of turn and river cards
     for combo in deck.iter().combinations(2) {
         let turn_card = *combo[0];
         let river_card = *combo[1];
@@ -40,42 +38,47 @@ fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<C
         board.push(turn_card);
         board.push(river_card);
 
-        let mut hand_strengths: Vec<(usize, (u16, u8))> = player_hands.iter().enumerate().map(|(index, hand)| {
-            let mut full_hand = hand.clone();
-            full_hand.extend(&board);
-            (index, get_nut_rank(&full_hand, &board))
-        }).collect();
+        let mut hand_strengths: Vec<u16> = player_hands.iter()
+        .map(|hand| get_nut_rank(&hand, &board).0)
+        .collect();
 
-        hand_strengths.sort_by(|a, b| a.1.cmp(&b.1).reverse());
-        let best_hand = hand_strengths[0].1;
-        let winners = hand_strengths.iter().filter(|&hand| hand.1 == best_hand).collect::<Vec<_>>();
-        let winners_count = winners.len();
 
-        if winners_count > 1 {
-            // It's a tie
-            for &(index, _) in &winners {
-                *tie_counts.entry(*index).or_insert(0) += 1;
+      
+        // Inside calculate_equity, after determining winners
+        println!("Board: {:?}, Hand Strengths: {:?}", board, hand_strengths);
+        let min_value = match hand_strengths.iter().min() {
+            Some(&min) => min,
+            None => 99
+        };
+        let winner_indexes: Vec<usize> = hand_strengths.iter()
+        .enumerate()
+        .filter(|&(_, &value)| value == min_value)
+        .map(|(index, _)| index)
+        .collect();
+
+        println!("min {:?}", winner_indexes);
+        if winner_indexes.len() > 1 {
+            for &win in &winner_indexes {
+                *tie_counts.entry(usize::from(win)).or_insert(0) += 1;
             }
         } else {
-            // Single winner
-            let winner_index = winners[0].0;
-            *win_counts.entry(winner_index).or_insert(0) += 1;
+            let winner_index = winner_indexes[0];
+            *win_counts.entry(usize::from(winner_index)).or_insert(0) += 1;
         }
 
         total_outcomes += 1;
     }
-
-    // Calculate equity for each player
-    for (index, _) in player_hands.iter().enumerate() {
+    println!("player_hands {:?}", player_hands.len());
+    for index in 0..player_hands.len() {
         let wins = *win_counts.get(&index).unwrap_or(&0) as f64;
         let ties = *tie_counts.get(&index).unwrap_or(&0) as f64;
-        let equity = (wins + ties) / total_outcomes as f64;
-        equities.insert(index, equity);
+        println!("index {:?} wins {:?} ties {:?}", index, wins, ties);
+        equities[index] = (wins + ties) / total_outcomes as f64;
     }
 
     equities
 }
 
-pub fn equity(hands: Vec<Vec<Card>>, comm: Vec<Card>) -> HashMap<usize, f64> {
+pub fn equity(hands: Vec<Vec<Card>>, comm: Vec<Card>) -> Vec<f64> {
     calculate_equity(&hands,&comm, get_remaining_cards(&hands, &comm)) 
 } 
