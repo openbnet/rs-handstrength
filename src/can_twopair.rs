@@ -7,7 +7,7 @@ use crate::sorting::*;
 // Function to check if there are pairs on the board
 pub fn has_pairs(comcards: &Vec<Card>) -> bool {
     let card_values: HashSet<u8> = comcards.iter().map(|card| card.value).collect();
-    comcards.iter().any(|card| card_values.contains(&card.value) && comcards.iter().filter(|&c| c.value == card.value).count() > 1)
+    comcards.iter().any(|card| card_values.contains(&card.value) && comcards.iter().filter(|&c| c.value == card.value).count() == 2)
 }
 // ASSUME trips on board handled by can_have_trips, we are ignoring that use case.
 // Function to generate two-pair combinations
@@ -37,7 +37,9 @@ pub fn can_have_twopairs(comcards: &Vec<Card>) -> CanHaveCombis {
         true => {
             // println!("has pairs true {:?}", sorted);
             let grouped_cards = get_same_value_map(&replace_ace_as_high(&sorted));
+            println!("before grouped_cards {:?} {:?}", grouped_cards, sorted);
             let pair_groups: Vec<Vec<Card>> = grouped_cards.iter().filter(|group| group.len() == 2).cloned().collect();
+            println!("grouped_cards {:?} pair_groups {:?}", grouped_cards, pair_groups);
             let pair_values: Vec<u8> = pair_groups.iter().map(|group| group[0].value).collect();
             let single_groups : Vec<Vec<Card>> = grouped_cards.iter().filter(|group| group.len() == 1).cloned().collect();
             let all_values: Vec<u8> = (2..=14).rev().collect(); // All possible card values
