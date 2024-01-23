@@ -15,6 +15,17 @@ pub fn can_flush(comcards: &Vec<Card>) -> Option<Suit> {
         .find(|&(_, count)| count >= 3)
         .map(|(suit, _)| suit)
 }
+pub fn can_flush_hand(hand: &Vec<Card>) -> Option<Suit> {
+    let mut suit_counts = std::collections::HashMap::new();
+
+    for card in hand {
+        *suit_counts.entry(card.suit).or_insert(0) += 1;
+    }
+
+    suit_counts.into_iter()
+        .find(|&(_, count)| count >= 2)
+        .map(|(suit, _)| suit)
+}
 
 // cal gaps EXPECTS desc sorted combi of 3 only!
 pub fn calculate_gaps(sorted_combination: &[Card]) -> (u8, Vec<Vec<u8>>) {

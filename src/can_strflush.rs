@@ -6,7 +6,6 @@ pub fn can_have_straight_flush(comcards: &Vec<Card>) -> CanHaveCombis {
     let sorted = sort_cards(comcards);
     let mut straight_flush_combinations: CanHaveCombis = Vec::new();
     // println!("cah have str flush called {:?}", comcards);
-    let flushsuit = can_flush( &sorted);
     // println!("flush suit {:?}", flushsuit);
     if let Some(flush_suit) = can_flush(&sorted) {
         let flush_suit_cards = add_ace_as_high(
