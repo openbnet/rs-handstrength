@@ -1,4 +1,4 @@
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Hash)]
 pub enum Suit {
     S,
     H,
@@ -7,7 +7,7 @@ pub enum Suit {
     A // any *
 }
 
-#[derive(Clone, Copy, Debug, Hash)]
+#[derive(Clone, Copy, Debug, Hash, PartialEq)]
 pub struct Card {
     pub value: u8,
     pub suit: Suit,
