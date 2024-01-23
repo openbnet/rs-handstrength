@@ -8,13 +8,8 @@ pub fn get_remaining_cards(player_hands: Vec<Vec<Card>>, board: Vec<Card>) -> Ve
     let mut allp_cards = player_hands.iter().flatten().cloned().collect::<Vec<Card>>();
     allp_cards.extend(board);
     let mut remaining = create_full_deck();
-    remaining.retain(|c| !allp_cards.contains(c))
-    // let used_cards: HashSet<Card> = player_hands.into_iter().flatten()
-    //                                              .chain(flop.into_iter())
-    //                                              .collect();
-
-    // deck.retain(|card| !used_cards.contains(card));
-    // deck
+    remaining.retain(|c| !allp_cards.contains(c));
+    remaining
 }
 
 fn create_full_deck() -> Vec<Card> {
