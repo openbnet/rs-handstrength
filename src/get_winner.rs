@@ -8,7 +8,7 @@ pub fn get_winner(phands: &Vec<Vec<Card>>, comcards: &Vec<Card>) -> Vec<usize> {
         .collect::<Vec<u16>>();
 
     // Find the lowest score (winner score)
-    let winner_score = match scores.par_iter().min() {
+    let winner_score = match scores.iter().min() {
         Some(&score) => score,
         None => return Vec::new(), // Return empty if no hands are given
     };
