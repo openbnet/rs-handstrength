@@ -4,7 +4,8 @@ use crate::card::{Card, Suit};
 use std::collections::HashSet;
 use itertools::Itertools;
 use rayon::prelude::*;
-
+use std::sync::Mutex;
+use std::sync::Arc;
 pub fn get_remaining_cards(player_hands: &Vec<Vec<Card>>, board: &Vec<Card>) -> Vec<Card> {
     let mut allp_cards = player_hands.iter().flatten().cloned().collect::<Vec<Card>>();
     allp_cards.extend(board);
@@ -28,8 +29,9 @@ fn create_full_deck() -> Vec<Card> {
 // Function to calculate the equity for each set of player cards
 fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<Card>) -> Vec<f64> {
     let mut equities = vec![0.0; player_hands.len()];
-    let mut win_counts: HashMap<usize, u32> = HashMap::new();
-    let mut tie_counts: HashMap<usize, u32> = HashMap::new();
+    let win_counts = Arc::new(Mutex::new(HashMap::new()));
+    let tie_counts = Arc::new(Mutex::new(HashMap::new()));
+
     let total_outcomes = deck.iter().combinations(2).count();
 
     deck.iter()
@@ -68,23 +70,32 @@ fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<C
 
             // Use a mutex or another form of synchronization to safely update the shared win_counts and tie_counts
             // This is a simplified example; in practice, you may need more sophisticated synchronization
-            let mut wc = win_counts.lock().unwrap();
-            let mut tc = tie_counts.lock().unwrap();
-            for (index, count) in local_win_counts {
-                *wc.entry(index).or_insert(0) += count;
-            }
-            for (index, count) in local_tie_counts {
-                *tc.entry(index).or_insert(0) += count;
+            let wc = win_counts.clone();
+            let tc = tie_counts.clone();
+
+            if winner_indexes.len() > 1 {
+                let mut tie_counts = tc.lock().unwrap();
+                for &win in &winner_indexes {
+                    *tie_counts.entry(win).or_insert(0) += 1;
+                }
+            } else {
+                let mut win_counts = wc.lock().unwrap();
+                let winner_index = winner_indexes[0];
+                *win_counts.entry(winner_index).or_insert(0) += 1;
             }
         });
 
+    let win_counts = win_counts.lock().unwrap();  // Lock the mutex to access the HashMap
+    let tie_counts = tie_counts.lock().unwrap();  // Lock the mutex to access the HashMap
+    
     for index in 0..player_hands.len() {
         let wins = *win_counts.get(&index).unwrap_or(&0) as f64;
         let ties = *tie_counts.get(&index).unwrap_or(&0) as f64;
         equities[index] = (wins + ties) / total_outcomes as f64;
     }
-
+    
     equities
+        
 }
 pub fn equity(hands: Vec<Vec<Card>>, comm: Vec<Card>) -> Vec<f64> {
     calculate_equity(&hands,&comm, get_remaining_cards(&hands, &comm)) 
