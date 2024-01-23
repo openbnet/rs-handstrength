@@ -56,7 +56,7 @@ fn calculate_equity(player_hands: Vec<Vec<Card>>, flop: Vec<Card>, deck: Vec<Car
             if winners.len() > 1 {
                 // It's a tie
                 for &(index, _) in &winners {
-                    *tie_counts.entry(index).or_insert(0) += 1;
+                    *tie_counts.entry(*index).or_insert(0) += 1;
                 }
             } else {
                 // Single winner
