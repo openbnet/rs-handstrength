@@ -1,6 +1,6 @@
 use crate::card::Card;
 use crate::get_nut_rank::get_nut_rank;
-// use rayon::prelude::*;
+
 pub fn get_winner(phands: &Vec<Vec<Card>>, comcards: &Vec<Card>) -> Vec<usize> {
     // Calculate scores for each hand in parallel
     let scores = phands.iter()
