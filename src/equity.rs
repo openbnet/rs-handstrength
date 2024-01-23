@@ -29,7 +29,6 @@ fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<C
     let mut win_counts: HashMap<usize, u32> = HashMap::new();
     let mut tie_counts: HashMap<usize, u32> = HashMap::new();
     let mut total_outcomes = 0;
-
     for combo in deck.iter().combinations(2) {
         let turn_card = *combo[0];
         let river_card = *combo[1];
@@ -75,7 +74,6 @@ fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<C
         println!("index {:?} wins {:?} ties {:?}", index, wins, ties);
         equities[index] = (wins + ties) / total_outcomes as f64;
     }
-
     equities
 }
 
