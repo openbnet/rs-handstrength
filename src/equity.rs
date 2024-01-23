@@ -44,7 +44,7 @@ fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<C
 
       
         // Inside calculate_equity, after determining winners
-        println!("Board: {:?}, Hand Strengths: {:?}", board, hand_strengths);
+        // println!("Board: {:?}, Hand Strengths: {:?}", board, hand_strengths);
         let min_value = match hand_strengths.iter().min() {
             Some(&min) => min,
             None => 99
@@ -55,7 +55,7 @@ fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<C
         .map(|(index, _)| index)
         .collect();
 
-        println!("min {:?}", winner_indexes);
+        // println!("min {:?}", winner_indexes);
         if winner_indexes.len() > 1 {
             for &win in &winner_indexes {
                 *tie_counts.entry(usize::from(win)).or_insert(0) += 1;
@@ -67,11 +67,11 @@ fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<C
 
         total_outcomes += 1;
     }
-    println!("player_hands {:?}", player_hands.len());
+    // println!("player_hands {:?}", player_hands.len());
     for index in 0..player_hands.len() {
         let wins = *win_counts.get(&index).unwrap_or(&0) as f64;
         let ties = *tie_counts.get(&index).unwrap_or(&0) as f64;
-        println!("index {:?} wins {:?} ties {:?}", index, wins, ties);
+        // println!("index {:?} wins {:?} ties {:?}", index, wins, ties);
         equities[index] = (wins + ties) / total_outcomes as f64;
     }
     equities

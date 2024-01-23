@@ -37,9 +37,9 @@ pub fn can_have_twopairs(comcards: &Vec<Card>) -> CanHaveCombis {
         true => {
             // println!("has pairs true {:?}", sorted);
             let grouped_cards = get_same_value_map(&replace_ace_as_high(&sorted));
-            println!("before grouped_cards {:?} {:?}", grouped_cards, sorted);
+            // println!("before grouped_cards {:?} {:?}", grouped_cards, sorted);
             let pair_groups: Vec<Vec<Card>> = grouped_cards.iter().filter(|group| group.len() == 2).cloned().collect();
-            println!("grouped_cards {:?} pair_groups {:?}", grouped_cards, pair_groups);
+            // println!("grouped_cards {:?} pair_groups {:?}", grouped_cards, pair_groups);
             let pair_values: Vec<u8> = pair_groups.iter().map(|group| group[0].value).collect();
             let single_groups : Vec<Vec<Card>> = grouped_cards.iter().filter(|group| group.len() == 1).cloned().collect();
             let all_values: Vec<u8> = (2..=14).rev().collect(); // All possible card values
