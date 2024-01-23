@@ -14,7 +14,7 @@ pub fn get_winner(phands: &Vec<Vec<Card>>, comcards: &Vec<Card>) -> Vec<usize> {
     };
 
     // Find all indexes with the winner score in parallel
-    scores.par_iter().enumerate()
+    scores.iter().enumerate()
         .filter(|&(_index, &score)| score == winner_score)
         .map(|(index, _)| index)
         .collect()
