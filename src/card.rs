@@ -1,4 +1,4 @@
-#[derive(Clone, Copy, Debug, PartialEq,Eq, Hash)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum Suit {
     S,
     H,
