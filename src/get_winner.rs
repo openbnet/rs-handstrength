@@ -1,20 +1,20 @@
-use crate::can_libs::*;
-use crate::card::{Card, Suit};
+use crate::card::Card;
 use crate::get_nut_rank::get_nut_rank;
+use rayon::prelude::*;
 pub fn get_winner(phands: &Vec<Vec<Card>>, comcards: &Vec<Card>) -> Vec<usize> {
-    // Calculate scores for each hand
-    let scores = phands.iter()
+    // Calculate scores for each hand in parallel
+    let scores = phands.par_iter()
         .map(|hand| get_nut_rank(hand, comcards).0)
         .collect::<Vec<u16>>();
 
     // Find the lowest score (winner score)
-    let winner_score = match scores.iter().min() {
+    let winner_score = match scores.par_iter().min() {
         Some(&score) => score,
         None => return Vec::new(), // Return empty if no hands are given
     };
 
-    // Find all indexes with the winner score
-    scores.iter().enumerate()
+    // Find all indexes with the winner score in parallel
+    scores.par_iter().enumerate()
         .filter(|&(_index, &score)| score == winner_score)
         .map(|(index, _)| index)
         .collect()
