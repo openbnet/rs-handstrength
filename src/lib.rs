@@ -26,4 +26,6 @@ mod get_nut_rank;
 pub use get_nut_rank::*;
 mod equity;
 pub use equity::*;
+mod get_winner;
+pub use get_winner::*;
 mod tests;
