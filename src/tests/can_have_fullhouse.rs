@@ -16,10 +16,10 @@ mod tests {
         ];
 
         let fh_combis = can_have_fullhouse(&cards);
-        println!("fs_combinations, {:?}", fh_combis);
+        // println!("fs_combinations, {:?}", fh_combis);
         // Check for 13 possible combinations (excluding 10)
         assert_eq!(fh_combis.len(), 2);
-        println!("first board {:?}", fh_combis[1].1);
+        // println!("first board {:?}", fh_combis[1].1);
    
         assert_debug_snapshot!(fh_combis)
     }  
@@ -34,10 +34,10 @@ mod tests {
         ];
 
         let fh_combis = can_have_fullhouse(&cards);
-        println!("fs_combinations, {:?}", fh_combis);
+        // println!("fs_combinations, {:?}", fh_combis);
         // Check for 13 possible combinations (excluding 10)
         assert_eq!(fh_combis.len(), 1);
-        println!("first board {:?}", fh_combis[0].1);
+        // println!("first board {:?}", fh_combis[0].1);
    
         assert_debug_snapshot!(fh_combis)
     }  
@@ -52,10 +52,10 @@ mod tests {
         ];
 
         let fh_combis = can_have_fullhouse(&cards);
-        println!("fs_combinations, {:?}", fh_combis);
+        // println!("fs_combinations, {:?}", fh_combis);
         // Check for 13 possible combinations (excluding 10)
         assert_eq!(fh_combis.len(), 1);
-        println!("first board {:?}", fh_combis[0].1);
+        // println!("first board {:?}", fh_combis[0].1);
    
         assert_debug_snapshot!(fh_combis)
     }   
@@ -70,10 +70,10 @@ mod tests {
         ];
 
         let fh_combis = can_have_fullhouse(&cards);
-        println!("fs_combinations, {:?}", fh_combis);
+        // println!("fs_combinations, {:?}", fh_combis);
         // Check for 13 possible combinations (excluding 10)
         assert_eq!(fh_combis.len(), 6);
-        println!("first board {:?}", fh_combis[0].1);
+        // println!("first board {:?}", fh_combis[0].1);
    
         assert_debug_snapshot!(fh_combis) 
     }
@@ -88,10 +88,10 @@ mod tests {
         ];
 
         let fh_combis = can_have_fullhouse(&cards);
-        println!("fs_combinations, {:?}", fh_combis);
+        // println!("fs_combinations, {:?}", fh_combis);
         // Check for 13 possible combinations (excluding 10)
         assert_eq!(fh_combis.len(), 4);
-        println!("first board {:?}", fh_combis[0].1);
+        // println!("first board {:?}", fh_combis[0].1);
    
         assert_debug_snapshot!(fh_combis) 
     }

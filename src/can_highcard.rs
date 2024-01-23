@@ -23,7 +23,7 @@ pub fn can_have_highcard(comcards: &Vec<Card>) -> CanHaveCombis {
         
         ]]
     ).collect::<Vec<Vec<Vec<Card>>>>();
-    println!("non com values com {:?}", kickers);
+    // println!("non com values com {:?}", kickers);
     vec![(
         comcards.clone(),
         ranked_kickers

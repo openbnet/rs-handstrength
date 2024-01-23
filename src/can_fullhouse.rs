@@ -7,7 +7,7 @@ pub fn can_have_fullhouse(cards:  &Vec<Card>) -> CanHaveCombis {
     let has_pair = grouped_cards.iter().any(|group| group.len() == 2);
     let has_trips = grouped_cards.iter().any(|group| group.len() == 3);
     let has_two_pair = grouped_cards.iter().filter(|group| group.len() == 2).count() > 1;
-    println!("grouped_cards {:?}", grouped_cards);
+    // println!("grouped_cards {:?}", grouped_cards);
     if !has_pair && !has_trips && !has_two_pair {
         return fh_combis;
     } else {
@@ -16,7 +16,7 @@ pub fn can_have_fullhouse(cards:  &Vec<Card>) -> CanHaveCombis {
     // if has trips, pairs are ignored anyway
     if has_trips {
         let trips: Vec<Vec<Card>> = grouped_cards.iter().filter(|group| group.len() == 3).cloned().collect();
-        println!("group 1 {:?}", trips);
+        // println!("group 1 {:?}", trips);
         let trips_value = trips[0][0].value;
 
         // Handle overhouses

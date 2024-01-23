@@ -14,7 +14,7 @@ mod tests {
         ];
 
         let str_combis = can_have_str(&cards);
-        println!("fs_combinations, {:?}", str_combis);
+        // println!("fs_combinations, {:?}", str_combis);
         // Check for 13 possible combinations (excluding 10)
         assert_eq!(str_combis.len(), 0);
     }
@@ -29,7 +29,7 @@ mod tests {
         ];
 
         let str_combis = can_have_str(&cards);
-        println!("fs_combinations, {:?}", str_combis);
+        // println!("fs_combinations, {:?}", str_combis);
         // Check for 13 possible combinations (excluding 10)
         assert_eq!(str_combis.len(), 1);
         assert_debug_snapshot!(str_combis);
@@ -46,8 +46,8 @@ mod tests {
         ];
 
         let str_combis = can_have_str(&cards);
-        println!("fs_combinations, {:?}", str_combis);
-        println!("test len {:?}", cards.len());
+        // println!("fs_combinations, {:?}", str_combis);
+        // println!("test len {:?}", cards.len());
         // Check for 13 possible combinations (excluding 10)
         assert_eq!(str_combis.len(), 2);
         assert_debug_snapshot!(str_combis);
@@ -63,8 +63,8 @@ mod tests {
         ];
 
         let str_combis = can_have_str(&cards);
-        println!("fs_combinations, {:?}", str_combis);
-        println!("test len {:?}", cards.len());
+        // println!("fs_combinations, {:?}", str_combis);
+        // println!("test len {:?}", cards.len());
         // Check for 13 possible combinations (excluding 10)
         assert_eq!(str_combis.len(), 3);
         assert_debug_snapshot!(str_combis);

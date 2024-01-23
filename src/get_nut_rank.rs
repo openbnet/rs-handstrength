@@ -14,7 +14,7 @@ use crate::card::{Card, Suit};
 pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
     let can_str_flush = can_have_straight_flush(comcards);
     let (hit, rank) = is_subset(hand, can_str_flush); 
-    println!("str flush hit {:} rank {:}", hit, rank);
+    // println!("str flush hit {:} rank {:}", hit, rank);
 
     if hit {
         return (rank, 0);
@@ -22,7 +22,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
     let mut score = rank.clone();
     let can_quads = can_have_quads(comcards);
     let (hitq, rankq) = is_subset(hand, can_quads); 
-    println!("quads  {:} rank {:}", hitq, rankq);
+    // println!("quads  {:} rank {:}", hitq, rankq);
     score += rankq; 
     if hitq {
         return (score, 1);
@@ -31,7 +31,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
 
     let can_fh = can_have_fullhouse(comcards);
     let (hitfh, rankfh) = is_subset(hand, can_fh); 
-    println!("can_fh  {:} rank {:}", hitfh, rankfh);
+    // println!("can_fh  {:} rank {:}", hitfh, rankfh);
     score += rankfh; 
     if hitfh {
         return (score, 2);
@@ -39,7 +39,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
 
     let can_fl = can_have_flush(comcards);
     let (hitfl, rankfl) = is_subset(hand, can_fl); 
-    println!("can_fl  {:} rank {:}", hitfl, rankfl);
+    // println!("can_fl  {:} rank {:}", hitfl, rankfl);
     score += rankfl; 
     if hitfl {
         return (score, 3);
@@ -48,7 +48,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
 
     let can_str = can_have_str(comcards);
     let (hitstr, rankstr) = is_subset(hand, can_str); 
-    println!("can_str  {:} rank {:}", hitstr, rankstr);
+    // println!("can_str  {:} rank {:}", hitstr, rankstr);
     score += rankstr; 
     if hitstr {
         return (score, 4);
@@ -56,7 +56,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
 
     let can_trips = can_have_trips(comcards);
     let (hittrips, ranktrips) = is_subset(hand, can_trips); 
-    println!("can_trips  {:} rank {:}", hittrips, ranktrips);
+    // println!("can_trips  {:} rank {:}", hittrips, ranktrips);
     score += ranktrips; 
     if hittrips {
         return (score, 5);
@@ -64,7 +64,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
 
     let can_2pair = can_have_twopairs(comcards);
     let (hit2p, rank2p) = is_subset(hand, can_2pair); 
-    println!("can_2pair  {:} rank {:}", hit2p, rank2p);
+    // println!("can_2pair  {:} rank {:}", hit2p, rank2p);
     score += rank2p; 
     if hit2p {
         return (score, 6);
@@ -73,7 +73,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
 
     let can_pair = can_have_pair(comcards);
     let (hitp, rankp) = is_subset(hand, can_pair); 
-    println!("can_pair  {:} rank {:}", hitp, rankp);
+    // println!("can_pair  {:} rank {:}", hitp, rankp);
     score += rankp; 
     if hitp {
         return (score, 7);
@@ -81,7 +81,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
 
     let can_hc = can_have_highcard(comcards);
     let (hithc, rankhc) = is_subset(hand, can_hc); 
-    println!("can_hc  {:} rank {:}", hithc, rankhc);
+    // println!("can_hc  {:} rank {:}", hithc, rankhc);
     score += rankhc; 
 
     return (score, 8);
@@ -94,9 +94,9 @@ pub fn is_subset(hand: &Vec<Card>, combis: CanHaveCombis) -> (bool, u16) {
     for (_board, same_rank_hands) in combis {
         for same_rank in same_rank_hands {
             let (hit, score) = matches_hand(hand, &same_rank);
-            println!("matches hand hit {:?} score {:?} rank {:?}", hit, score, rank);
+            // println!("matches hand hit {:?} score {:?} rank {:?}", hit, score, rank);
             rank += score;
-            println!("rank {:?}", rank);
+            // println!("rank {:?}", rank);
             if hit {
                 return (true, rank);
             }

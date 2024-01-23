@@ -16,7 +16,7 @@ pub fn can_have_twopairs(comcards: &Vec<Card>) -> CanHaveCombis {
     let sorted = sort_cards(comcards);
     match has_pairs(&sorted) {
         false => {
-            println!("has pairs false {:?}", sorted);
+            // println!("has pairs false {:?}", sorted);
             let board_values: Vec<u8> = sorted.iter().map(|card| card.value).collect();
             
             // Generate possible two-pair hands for no pairs on board
@@ -35,7 +35,7 @@ pub fn can_have_twopairs(comcards: &Vec<Card>) -> CanHaveCombis {
         },
 
         true => {
-            println!("has pairs true {:?}", sorted);
+            // println!("has pairs true {:?}", sorted);
             let grouped_cards = get_same_value_map(&replace_ace_as_high(&sorted));
             let pair_groups: Vec<Vec<Card>> = grouped_cards.iter().filter(|group| group.len() == 2).cloned().collect();
             let pair_values: Vec<u8> = pair_groups.iter().map(|group| group[0].value).collect();
@@ -43,7 +43,7 @@ pub fn can_have_twopairs(comcards: &Vec<Card>) -> CanHaveCombis {
             let all_values: Vec<u8> = (2..=14).rev().collect(); // All possible card values
             let single_values: Vec<u8> = single_groups.iter().map(|group| group[0].value).collect();
             // we can ignore 2nd pair group as it is the lower value
-            println!("all_values {:?}", all_values);
+            // println!("all_values {:?}", all_values);
             for single in &single_values {
                 let higher_singles: Vec<u8> = single_values.iter().filter(|v| v >= &single).cloned().collect();
                 let kickers: Vec<Vec<Vec<Card>>> = all_values.iter().filter(|&&v| !higher_singles.contains(&v) && !pair_values.contains(&v)).map(|&v| vec![vec![Card {value: v, suit: Suit::A}, Card {value: *single, suit: Suit::A}]]).collect();

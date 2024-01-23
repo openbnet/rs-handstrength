@@ -33,7 +33,7 @@ mod tests {
         ];
 
         let grouped_cards = get_same_value_map(&cards);
-        println!("grouped_cards, {:?}", grouped_cards);
+        // println!("grouped_cards, {:?}", grouped_cards);
         // Test the number of groups
         assert_eq!(grouped_cards.len(), 3);
 

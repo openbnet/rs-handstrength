@@ -33,7 +33,7 @@ mod tests {
 
         let trip_combis = can_have_trips(&cards);
         // assert!(trip_combis.is_empty()); // Expecting no combinations
-        println!("no pair trips {:?}", trip_combis);
+        // println!("no pair trips {:?}", trip_combis);
         assert_debug_snapshot!(trip_combis);
     }
 

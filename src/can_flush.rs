@@ -13,7 +13,7 @@ pub fn can_have_flush(comcards: &Vec<Card>) -> CanHaveCombis {
         let sorted_flush_suit_cards = sort_cards(&flush_suit_cards);
 
         let unused_flush_cards = get_unused_flush_cards(&sorted_flush_suit_cards, flush_suit);
-        println!("unused_flush_cards {:?} board {:?}", unused_flush_cards, sorted_flush_suit_cards[..3].to_vec());
+        // println!("unused_flush_cards {:?} board {:?}", unused_flush_cards, sorted_flush_suit_cards[..3].to_vec());
         vec![(sorted_flush_suit_cards[..3].to_vec(), generate_two_card_combos(&unused_flush_cards))]
     } else {
         Vec::new() // No flush suit found

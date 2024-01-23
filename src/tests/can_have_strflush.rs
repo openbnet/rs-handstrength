@@ -24,10 +24,10 @@ mod tests {
             Card {value: 1, suit: Suit::S }
         ]; 
         let strflush = can_have_straight_flush(&comcards);
-        println!("strflush {:?}", strflush);
+        // println!("strflush {:?}", strflush);
         assert_eq!(strflush.len(), 1);
         let can_have = can_have_straight_flush(&comcards);
-        println!("can_have {:?}", can_have);
+        // println!("can_have {:?}", can_have);
         assert_debug_snapshot!(can_have); 
         let hand = vec![
             Card { value: 6, suit: Suit::S },
@@ -36,7 +36,7 @@ mod tests {
             Card {value: 8, suit: Suit::S } 
         ];
         let nr = get_nut_rank(&hand, &comcards);
-        println!("nr {:?}", nr);
+        // println!("nr {:?}", nr);
         assert_debug_snapshot!(nr);
     }
     #[test]
@@ -58,10 +58,10 @@ mod tests {
         assert_eq!(gaps.0, 1);
         assert_eq!(gaps.1, vec![vec![3]]);
         let blocked = is_blocked(&comcards, &v, gaps);
-        println!("blocked 1 {:?}", blocked);
+        // println!("blocked 1 {:?}", blocked);
         assert_debug_snapshot!(blocked);
         let can_have = can_have_straight_flush(&v);
-        println!("can_have {:?}", can_have);
+        // println!("can_have {:?}", can_have);
         assert_debug_snapshot!(can_have);
         let hand = vec![
             Card { value: 9, suit: Suit::S },
@@ -70,7 +70,7 @@ mod tests {
             Card {value: 10, suit: Suit::S } 
         ];
         let nr = get_nut_rank(&hand, &v);
-        println!("nr {:?}", nr);
+        // println!("nr {:?}", nr);
         assert_debug_snapshot!(nr); 
     }
     // #[test]
@@ -81,7 +81,7 @@ mod tests {
             Card { value: 1, suit: Suit::S },
         ]; 
         let can_have = can_have_straight_flush(&comcards);
-        println!("can_have {:?}", can_have);
+        // println!("can_have {:?}", can_have);
         assert_debug_snapshot!(can_have);
         
     }
@@ -93,7 +93,7 @@ mod tests {
             Card { value: 3, suit: Suit::S },
         ]; 
         let can_have = can_have_straight_flush(&comcards);
-        println!("can_have {:?}", can_have);
+        // println!("can_have {:?}", can_have);
         assert_debug_snapshot!(can_have);
         let hand = vec![
             Card { value: 6, suit: Suit::S },
@@ -102,7 +102,7 @@ mod tests {
             Card {value: 10, suit: Suit::C } 
         ];
         let nr = get_nut_rank(&hand, &comcards);
-        println!("nr {:?}", nr);
+        // println!("nr {:?}", nr);
         assert_eq!(nr.0, 1);
         let hand = vec![
             Card { value: 1, suit: Suit::S },
@@ -111,7 +111,7 @@ mod tests {
             Card {value: 10, suit: Suit::C } 
         ];
         let nr2 = get_nut_rank(&hand, &comcards);
-        println!("nr2 {:?}", nr2);
+        // println!("nr2 {:?}", nr2);
         assert_eq!(nr2.0, 0);
     }
     #[test]
@@ -128,14 +128,14 @@ mod tests {
             Card { value: 1, suit: Suit::S }, 
         ];
         let gaps = calculate_gaps(&comcards);
-        println!("gaps, {:?}", gaps);
+        // println!("gaps, {:?}", gaps);
         assert_eq!(gaps.0, 2);
         assert_eq!(gaps.1, vec![vec![4, 3]]);
         let blocked = is_blocked(&comcards, &v, gaps);
-        println!("blocked 21 {:?}", blocked);
+        // println!("blocked 21 {:?}", blocked);
         assert_debug_snapshot!(blocked);
         let can_have = can_have_straight_flush(&v);
-        println!("can_have {:?}", can_have);
+        // println!("can_have {:?}", can_have);
         assert_debug_snapshot!(can_have);
     }
     #[test]
@@ -153,14 +153,14 @@ mod tests {
 
         ]; 
         let gaps = calculate_gaps(&comcards);
-        println!("gaps, {:?}", gaps);
+        // println!("gaps, {:?}", gaps);
         assert_eq!(gaps.0, 2);
         assert_eq!(gaps.1, vec![vec![4], vec![2]]);
         let blocked = is_blocked(&comcards, &v, gaps);
-        println!("blocked {:?}", blocked);
+        // println!("blocked {:?}", blocked);
         assert_debug_snapshot!(blocked);
         let can_have = can_have_straight_flush(&v);
-        println!("can_have {:?}", can_have);
+        // println!("can_have {:?}", can_have);
         assert_debug_snapshot!(can_have); 
     }
     #[test]
@@ -176,11 +176,11 @@ mod tests {
             Card { value: 4, suit: Suit::S },
         ];
         let gaps = calculate_gaps(&comcards);
-        println!("gaps, {:?}", gaps);
+        // println!("gaps, {:?}", gaps);
         assert_eq!(gaps.0, 3);
         assert_eq!(gaps.1, vec![vec![8, 7, 6]]);
         let can_have = can_have_straight_flush(&v);
-        println!("can_have {:?}", can_have);
+        // println!("can_have {:?}", can_have);
         assert_eq!(can_have.len(), 0);
     }
 }

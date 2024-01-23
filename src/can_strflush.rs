@@ -5,9 +5,9 @@ use crate::can_libs::*;
 pub fn can_have_straight_flush(comcards: &Vec<Card>) -> CanHaveCombis {
     let sorted = sort_cards(comcards);
     let mut straight_flush_combinations: CanHaveCombis = Vec::new();
-    println!("cah have str flush called {:?}", comcards);
+    // println!("cah have str flush called {:?}", comcards);
     let flushsuit = can_flush( &sorted);
-    println!("flush suit {:?}", flushsuit);
+    // println!("flush suit {:?}", flushsuit);
     if let Some(flush_suit) = can_flush(&sorted) {
         let flush_suit_cards = add_ace_as_high(
             &sorted.iter()
@@ -22,26 +22,26 @@ pub fn can_have_straight_flush(comcards: &Vec<Card>) -> CanHaveCombis {
                 for k in j + 1..length {
                     let combination = vec![flush_suit_cards[i], flush_suit_cards[j], flush_suit_cards[k]];
                     let gaps = calculate_gaps(&combination);
-                    println!("Combination: {:?}, Gaps: {:?}", combination, gaps);
+                    // println!("Combination: {:?}, Gaps: {:?}", combination, gaps);
 
                     if gaps.0 <= 2 {
                         match is_blocked(&combination, &flush_suit_cards, gaps) {
                             Ok(possible_combinations) => {
-                                println!("Not Blocked: {:?}", combination);
+                                // println!("Not Blocked: {:?}", combination);
                                 straight_flush_combinations.push((combination, possible_combinations));
                             },
                             Err(_) => {
-                                println!("Blocked: {:?}", combination);
+                                // println!("Blocked: {:?}", combination);
                             }
                         }
                     } else {
-                        println!("Too many gaps: {:?}", combination);
+                        // println!("Too many gaps: {:?}", combination);
                     }
                 }
             }
         }
     }
-    println!("Straight Flush Combinations: {:?}", straight_flush_combinations);
+    // println!("Straight Flush Combinations: {:?}", straight_flush_combinations);
     handle_ace_low(straight_flush_combinations)
 }
 
@@ -110,12 +110,12 @@ pub fn is_blocked(straight_flush_cards: &[Card],all_flush_cards: &Vec<Card>, gap
         .cloned()
         .collect();
     let not_my_values: Vec<u8> = not_my_cards.iter().map(|card| card.value).collect();
-    println!("is blocked start {:?} {:?}", values, not_my_cards);
+    // println!("is blocked start {:?} {:?}", values, not_my_cards);
     match gaps.0 {
         0 => {
             // Check for cards above and below the sequence
             let mut possible = Vec::new();
-            println!("0 gapper {:?} {:?}", values, not_my_values);
+            // println!("0 gapper {:?} {:?}", values, not_my_values);
             if !not_my_values.contains(&(highest + 1)) && !not_my_values.contains(&(highest + 2)) {
                 possible.push(vec![vec![
                     Card { value: highest + 1, suit },
@@ -164,7 +164,7 @@ pub fn is_blocked(straight_flush_cards: &[Card],all_flush_cards: &Vec<Card>, gap
             let first_gap = &gaps.1[0];
 
             let mut possible = Vec::new();
-            println!("is blocked 2 {:?} {:?} {:?} first gap {:?}", gaps, gaps.1, gaps.1.len(), first_gap[0]);
+            // println!("is blocked 2 {:?} {:?} {:?} first gap {:?}", gaps, gaps.1, gaps.1.len(), first_gap[0]);
             // Check if it's two 1-gappers or one 2-gapper
             if first_gap.len() == 2 {
                 // It's a single 2-gapper
@@ -173,7 +173,7 @@ pub fn is_blocked(straight_flush_cards: &[Card],all_flush_cards: &Vec<Card>, gap
             } else {
                 // It's two separate 1-gappers
                 let second_gap = &gaps.1[1];
-                println!("second_gap {:?}", second_gap[0]);
+                // println!("second_gap {:?}", second_gap[0]);
                 possible.push(Card { value: first_gap[0], suit });
                 possible.push(Card { value: second_gap[0], suit });
             }

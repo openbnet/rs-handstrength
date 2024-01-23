@@ -20,7 +20,7 @@ pub fn can_have_quads(cards: &[Card]) -> CanHaveCombis {
                         );
                     }
                 }
-                println!("hand_matchers {:?}", hand_matchers);
+                // println!("hand_matchers {:?}", hand_matchers);
                 quads_combinations.push((
                     group,
                     vec![hand_matchers]

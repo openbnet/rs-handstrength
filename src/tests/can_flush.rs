@@ -25,7 +25,7 @@ mod tests {
             Card { value: 4, suit: Suit::H },
         ];
         let flushes = can_have_flush(&comcards);
-        println!("flushes {:?}", flushes.len());
+        // println!("flushes {:?}", flushes.len());
         assert_eq!(flushes.len(), 1);
         assert_eq!(flushes[0].1.len(), 45);
         assert_debug_snapshot!(flushes);
@@ -39,7 +39,7 @@ mod tests {
             Card { value: 5, suit: Suit::H }
         ];
         let flushes = can_have_flush(&comcards);
-        println!("flushes {:?}", flushes.len());
+        // println!("flushes {:?}", flushes.len());
         assert_eq!(flushes.len(), 1);
         assert_eq!(flushes[0].1.len(), 36);
         assert_debug_snapshot!(flushes);

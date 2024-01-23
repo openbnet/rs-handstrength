@@ -17,10 +17,10 @@ mod tests {
         ];
 
         let quads_combinations = can_have_quads(&cards);
-        println!("quads_combinations, {:?}", quads_combinations);
+        // println!("quads_combinations, {:?}", quads_combinations);
         // Check for 13 possible combinations (excluding 10)
         assert_eq!(quads_combinations.len(), 1);
-        println!("first board {:?}", quads_combinations[0].1);
+        // println!("first board {:?}", quads_combinations[0].1);
         assert_debug_snapshot!(quads_combinations);
         let hand = vec![
             Card { value: 10, suit: Suit::H },
@@ -29,7 +29,7 @@ mod tests {
             Card { value: 2, suit: Suit::C },
         ];
         let nr = get_nut_rank(&hand, &cards);
-        println!("nr {:?}", nr);
+        // println!("nr {:?}", nr);
         assert_eq!(nr.0, 3);
     }
     #[test]
@@ -57,7 +57,7 @@ mod tests {
     
         let quads_combinations = can_have_quads(&cards);
         assert_eq!(quads_combinations.len(), 1, "Should be one quads combination");
-        println!("quads_combinations {:?}", quads_combinations[0].1);
+        // println!("quads_combinations {:?}", quads_combinations[0].1);
         assert_eq!(quads_combinations[0].1.len(), 1, "Combination one hand");
         assert_debug_snapshot!(quads_combinations)
     }
@@ -73,7 +73,7 @@ mod tests {
     
         let quads_combinations = can_have_quads(&cards);
         assert_eq!(quads_combinations.len(), 2, "Should be two quads combinations");
-        println!("quads_combinations {:?}", quads_combinations);
+        // println!("quads_combinations {:?}", quads_combinations);
         assert_debug_snapshot!(quads_combinations)
     }
      
