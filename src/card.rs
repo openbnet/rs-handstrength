@@ -32,3 +32,11 @@ impl fmt::Display for Card {
         write!(f, "{} of {}", self.value, self.suit)
     }
 }
+impl Default for Card {
+    fn default() -> Self {
+        Card {
+            value: 0,
+            suit: Suit::S,
+        }
+    }
+}
