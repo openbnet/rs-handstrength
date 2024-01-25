@@ -8,7 +8,7 @@ use std::sync::Mutex;
 use std::sync::Arc;
 // use std::simd::u16x8;
 
-pub fn get_remaining_cards(player_hands: &Vec<Vec<Card>>, board: &Vec<Card>) -> Vec<Card> {
+pub fn get_remaining_cards(player_hands: &Vec<[Card; 4]>, board: &[Card; 3]) -> Vec<Card> {
     let mut allp_cards = player_hands.iter().flatten().cloned().collect::<Vec<Card>>();
     allp_cards.extend(board);
     let mut remaining = create_full_deck();
@@ -29,7 +29,7 @@ fn create_full_deck() -> Vec<Card> {
     deck
 }
 // Function to calculate the equity for each set of player cards
-fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<Card>) -> Vec<f64> {
+fn calculate_equity(player_hands: &Vec<[Card; 4]>, flop: &[Card; 3], deck: Vec<Card>) -> Vec<f64> {
     let mut equities = vec![0.0; player_hands.len()];
     let win_counts = Arc::new(Mutex::new(HashMap::new()));
     let tie_counts = Arc::new(Mutex::new(HashMap::new()));
@@ -43,12 +43,12 @@ fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<C
             let turn_card = *combo[0];
             let river_card = *combo[1];
 
-            let mut board = flop.clone();
+            let mut board = flop.clone().to_vec();
             board.push(turn_card);
             board.push(river_card);
 
             let hand_strengths: Vec<u16> = player_hands.iter()
-                .map(|hand| get_nut_rank(&hand, &board).0)
+                .map(|hand| get_nut_rank(&hand.to_vec(), &board).0)
                 .collect();
 
             let min_value = hand_strengths.iter().min().copied().unwrap_or(99);
@@ -99,6 +99,6 @@ fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<C
     equities
         
 }
-pub fn equity(hands: &Vec<Vec<Card>>, comm: &Vec<Card>) -> Vec<f64> {
+pub fn equity(hands: &Vec<[Card; 4]>, comm: &[Card; 3]) -> Vec<f64> {
     calculate_equity(hands,comm, get_remaining_cards(&hands, &comm)) 
 }
