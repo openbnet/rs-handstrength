@@ -3,7 +3,7 @@ mod tests {
     use crate::card::{Card, Suit};
     use crate::equity::*;
     use insta::assert_debug_snapshot;
-
+    use test::{Bencher, black_box};
     // #[test]
     fn test_equity_basic() {
         // Example set-up for a basic test
@@ -17,9 +17,15 @@ mod tests {
         ];
 
         let hands = vec![hand1, hand2];
-        let equities = equity(hands, community_cards);
-        // println!("equities {:?}", equities);
+        let equities = equity(&hands, &community_cards);
+        println!("equities {:?}", equities);
 
+    }
+    #[bench]
+    fn bench_basic(b: &mut Bencher) {
+        b.iter(|| {
+            test_equity_basic() 
+        })
     }
     #[test]
     fn test_equity() {
@@ -35,8 +41,8 @@ mod tests {
         ];
 
         let hands = vec![hand1, hand2];
-        let equities = equity(hands, community_cards);
-        // println!("equities {:?}", equities);
+        let equities = equity(&hands, &community_cards);
+        println!("equities {:?}", equities);
 
     }
 }

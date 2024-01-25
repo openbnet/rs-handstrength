@@ -1,3 +1,5 @@
+#![feature(test)]
+extern crate test;
 mod card;
 pub use card::{Card, Suit};
 mod sorting;

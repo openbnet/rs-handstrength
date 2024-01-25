@@ -6,6 +6,8 @@ use itertools::Itertools;
 use rayon::prelude::*;
 use std::sync::Mutex;
 use std::sync::Arc;
+// use std::simd::u16x8;
+
 pub fn get_remaining_cards(player_hands: &Vec<Vec<Card>>, board: &Vec<Card>) -> Vec<Card> {
     let mut allp_cards = player_hands.iter().flatten().cloned().collect::<Vec<Card>>();
     allp_cards.extend(board);
@@ -97,6 +99,6 @@ fn calculate_equity(player_hands: &Vec<Vec<Card>>, flop: &Vec<Card>, deck: Vec<C
     equities
         
 }
-pub fn equity(hands: Vec<Vec<Card>>, comm: Vec<Card>) -> Vec<f64> {
-    calculate_equity(&hands,&comm, get_remaining_cards(&hands, &comm)) 
-} 
+pub fn equity(hands: &Vec<Vec<Card>>, comm: &Vec<Card>) -> Vec<f64> {
+    calculate_equity(hands,comm, get_remaining_cards(&hands, &comm)) 
+}
