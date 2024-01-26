@@ -2,16 +2,15 @@ use itertools::{Itertools, GroupBy};
 use std::collections::HashMap;
 use crate::card::{Card, Suit};
 pub fn pf_rank(cards: [Card; 4]) -> u16 {
-    let suit_obj = cards.iter().group_by(|c| c.suit);
-    let value_obj = cards.iter().group_by(|c| c.value);
+    let suit_obj: HashMap<_, _> = cards.iter().group_by(|c| c.suit).into_iter().map(|(key, group)| (key, group.collect::<Vec<_>>())).collect();
+    let value_obj: HashMap<_, _> = cards.iter().group_by(|c| c.value).into_iter().map(|(key, group)| (key, group.collect::<Vec<_>>())).collect();
+    
     let mut total: f32 = 0 as f32;
     // process suits
-    for s in &suit_obj {
-        let suit = s.0;
-        let cards = s.1;
-        for card in cards {
+    for s in suit_obj.values() {
+        for card in s {
             let card_v = card.value;
-            let multiplier: f32 = match cards.count() {
+            let multiplier: f32 = match cards.len() {
                 4 => 1.2,
                 3 => 1.6,
                 2 => 2 as f32,
@@ -25,17 +24,17 @@ pub fn pf_rank(cards: [Card; 4]) -> u16 {
     for v in &value_obj {
         let value = v.0;
         let cards = v.1;
-        let multiplier: f32 = match cards.count() {
+        let multiplier: f32 = match cards.len() {
             3 => 1.2,
             2 => 2.5,
             _ => 0 as f32
         };
-        total += multiplier * adjust_card_value(value) as f32;
+        total += multiplier * adjust_card_value(*value) as f32;
     }
 
     process_straightness(
         &cards, 
-        &value_obj, 
+        value_obj, 
         total) as u16
 }
 
@@ -47,15 +46,11 @@ fn adjust_card_value(value: u8) -> u8 {
     }
 }
 
-fn process_straightness(cards: &[Card], value_obj: &GroupBy<u8, impl Iterator<Item = &Card>>,mut total: f32) -> f32 {
-
-    for (value, group) in value_obj {
-        let group_vec: Vec<&Card> = group.collect(); // Collect items in the current group
-        let other_cards: Vec<&Card> = cards.iter().filter(|&card| card.value != *value).collect();
-
-        total = process_card_for_straightness(*value, &other_cards, total);
+fn process_straightness(cards: &[Card], value_obj: HashMap<u8, Vec<&Card>>, mut total: f32) -> f32 {
+    for (value, _) in value_obj {
+        let other_cards: Vec<&Card> = cards.iter().filter(|&card| card.value != value).collect();
+        total = process_card_for_straightness(value, &other_cards, total);
     }
-
     total
 }
 
@@ -86,7 +81,7 @@ fn calculate_difference(v1: u8, v2: u8) -> u8 {
     }
 }
 
-fn update_total_for_straightness(mut total: f32, value: u8, diff: u8) -> f32 {
+fn update_total_for_straightness(total: f32, value: u8, diff: u8) -> f32 {
     let adjusted_value = adjust_card_value(value) as f32;
     let multiplier = match diff {
         1 => adjusted_value / 1.5,
@@ -104,6 +99,8 @@ mod tests {
     #[test]
     fn test_pf_rank() {
         let hand = [Card { value: 7, suit: Suit::S }, Card { value: 1, suit: Suit::D }, Card { value: 13, suit: Suit::S}, Card {value: 12, suit: Suit::S}];
-        pf_rank(hand);
+        let rank = pf_rank(hand);
+        println!("pf rank {:?}", rank);
+        assert_eq!(rank, 61);
     }
 }
