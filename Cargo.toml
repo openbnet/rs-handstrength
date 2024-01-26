@@ -3,7 +3,7 @@ name = "rs_handstrength"
 version = "0.2.0"
 edition = "2021"
 authors = ["Hansel Ke"]
-description = "relative to board omaha hand strength calculator"
+description = "relative to board omaha hand strength calculator and equity on flop"
 license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

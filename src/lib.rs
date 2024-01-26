@@ -30,4 +30,6 @@ mod equity;
 pub use equity::*;
 mod get_winner;
 pub use get_winner::*;
+mod pf_rank;
+pub use pf_rank::*; 
 mod tests;
