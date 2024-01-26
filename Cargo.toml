@@ -1,6 +1,6 @@
 [package]
 name = "rs_handstrength"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2021"
 authors = ["Hansel Ke"]
 description = "relative to board omaha hand strength calculator and equity on flop"

@@ -11,17 +11,17 @@ use crate::can_highcard::*;
 use crate::can_libs::*;
 use crate::card::{Card, Suit};
 
-pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
+pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (u16, u8) {
     let can_str_flush = can_have_straight_flush(comcards);
-    let (hit, rank) = is_subset(hand, can_str_flush); 
-    // println!("str flush hit {:} rank {:}", hit, rank);
-
+    println!("can_str_flush {:?}", can_str_flush);
+    let (hit, rank) = is_subset(hand, can_str_flush, relative); 
+    println!("str flush hit {:} rank {:}", hit, rank);
     if hit {
         return (rank, 0);
     }
     let mut score = rank.clone();
     let can_quads = can_have_quads(comcards);
-    let (hitq, rankq) = is_subset(hand, can_quads); 
+    let (hitq, rankq) = is_subset(hand, can_quads, relative); 
     // println!("quads  {:} rank {:}", hitq, rankq);
     score += rankq; 
     if hitq {
@@ -30,7 +30,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
     
 
     let can_fh = can_have_fullhouse(comcards);
-    let (hitfh, rankfh) = is_subset(hand, can_fh); 
+    let (hitfh, rankfh) = is_subset(hand, can_fh, relative); 
     // println!("can_fh  {:} rank {:}", hitfh, rankfh);
     score += rankfh; 
     if hitfh {
@@ -38,7 +38,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
     }
 
     let can_fl = can_have_flush(comcards);
-    let (hitfl, rankfl) = is_subset(hand, can_fl); 
+    let (hitfl, rankfl) = is_subset(hand, can_fl, relative); 
     // println!("can_fl  {:} rank {:}", hitfl, rankfl);
     score += rankfl; 
     if hitfl {
@@ -47,7 +47,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
 
 
     let can_str = can_have_str(comcards);
-    let (hitstr, rankstr) = is_subset(hand, can_str); 
+    let (hitstr, rankstr) = is_subset(hand, can_str, relative); 
     // println!("can_str  {:} rank {:}", hitstr, rankstr);
     score += rankstr; 
     if hitstr {
@@ -55,7 +55,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
     }
 
     let can_trips = can_have_trips(comcards);
-    let (hittrips, ranktrips) = is_subset(hand, can_trips); 
+    let (hittrips, ranktrips) = is_subset(hand, can_trips, relative); 
     // println!("can_trips  {:} rank {:}", hittrips, ranktrips);
     score += ranktrips; 
     if hittrips {
@@ -63,7 +63,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
     }
 
     let can_2pair = can_have_twopairs(comcards);
-    let (hit2p, rank2p) = is_subset(hand, can_2pair); 
+    let (hit2p, rank2p) = is_subset(hand, can_2pair, relative); 
     // println!("can_2pair  {:} rank {:}", hit2p, rank2p);
     score += rank2p; 
     if hit2p {
@@ -72,7 +72,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
 
 
     let can_pair = can_have_pair(comcards);
-    let (hitp, rankp) = is_subset(hand, can_pair); 
+    let (hitp, rankp) = is_subset(hand, can_pair, relative); 
     // println!("can_pair  {:} rank {:}", hitp, rankp);
     score += rankp; 
     if hitp {
@@ -80,7 +80,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
     }
 
     let can_hc = can_have_highcard(comcards);
-    let (hithc, rankhc) = is_subset(hand, can_hc); 
+    let (hithc, rankhc) = is_subset(hand, can_hc, relative); 
     // println!("can_hc  {:} rank {:}", hithc, rankhc);
     score += rankhc; 
 
@@ -88,17 +88,81 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>) -> (u16, u8) {
     
     
 }
-pub fn is_subset(hand: &Vec<Card>, combis: CanHaveCombis) -> (bool, u16) {
+pub fn is_subset(hand: &Vec<Card>, combis: CanHaveCombis, relative: bool) -> (bool, u16) {
     let mut rank = 0;
 
-    for (_board, same_rank_hands) in combis {
+    for (board, same_rank_hands) in combis {
+        if relative {
+            println!("is subset relative board {:?} {:?}", board, hand);
+            // [Card { value: 13, suit: C }, Card { value: 6, suit: C }, Card { value: 5, suit: C }] 
+            // [Card { value: 13, suit: H }, Card { value: 8, suit: C }, Card { value: 7, suit: C }, Card { value: 10, suit: C }]
+            // we need to see if any of the board cards are in hand
+            // if there is any single match, we need to ignore this whole board combi if relative is on
+            // else proceed as normal
+            // however the tricky thing is to handle the suit::A case for the board
+            // if its the board's suit::A, it should be ignored if the num of card value in hand + num of card value on board > 4
+
+            
+            let mut should_pass = true;
+            for bc in &board {
+                if bc.suit == Suit::A {
+                  let num_in_board = board.iter().filter(|&card| card.value == bc.value).count();
+                  let num_in_hand = hand.iter().filter(|&card| card.value == bc.value).count();
+                    if num_in_board + num_in_hand > 4 {
+                        should_pass = false;
+                        break;
+                    }  
+                } else {
+                    if hand.contains(&bc) {
+                        should_pass = false;
+                        break;
+                    }
+                }
+
+            }
+
+            if !should_pass {
+                continue;
+            }
+
+
+        }
         for same_rank in same_rank_hands {
-            let (hit, score) = matches_hand(hand, &same_rank);
-            // println!("matches hand hit {:?} score {:?} rank {:?}", hit, score, rank);
-            rank += score;
-            // println!("rank {:?}", rank);
-            if hit {
-                return (true, rank);
+            if relative {
+                let filtered_same_rank: Vec<Vec<Card>> = same_rank.iter()
+                    .filter(|&handmatcher| {
+                        for hc in handmatcher {
+                            if hc.suit == Suit::A {
+                                let num_in_board = board.iter().filter(|&card| card.value == hc.value).count();
+                                let num_in_hand = hand.iter().filter(|&card| card.value == hc.value).count();
+                                if num_in_board + num_in_hand > 4 {
+                                    return false;
+                                }  
+                            } else {
+                                if hand.contains(&hc) {
+                                    return false;
+                                }
+                            }
+                        }
+                        return true;
+                    })
+                    .cloned()
+                    .collect();
+                let (hit, score) = matches_hand(hand, &filtered_same_rank);
+                // println!("matches hand hit {:?} score {:?} rank {:?}", hit, score, rank);
+                rank += score;
+                // println!("rank {:?}", rank);
+                if hit {
+                    return (true, rank);
+                }
+            } else {
+                let (hit, score) = matches_hand(hand, &same_rank);
+                // println!("matches hand hit {:?} score {:?} rank {:?}", hit, score, rank);
+                rank += score;
+                // println!("rank {:?}", rank);
+                if hit {
+                    return (true, rank);
+                }
             }
         }
     }
@@ -116,6 +180,7 @@ fn matches_hand(hand: &Vec<Card>, same_rank: &Vec<CardHand>) -> (bool, u16) {
     (false, score)
 }
 // Helper function to determine if a hand matches a specific hand matcher
+// matches any and one
 fn is_hand_match(hand: &Vec<Card>, hand_matcher: &CardHand) -> bool {
     let mut matched_cards = 0;
     let mut r_hand = hand.clone();
@@ -136,3 +201,5 @@ fn is_hand_match(hand: &Vec<Card>, hand_matcher: &CardHand) -> bool {
 fn matches_card(card: &Card, matcher_card: &Card) -> bool {
     (matcher_card.suit == Suit::A || card.suit == matcher_card.suit) && card.value == matcher_card.value
 }
+
+// fn get_cards_left_matchers(index: usize, hand: [Card;4], pEval)

@@ -48,7 +48,7 @@ fn calculate_equity(player_hands: &Vec<[Card; 4]>, flop: &[Card; 3], deck: Vec<C
             board.push(river_card);
 
             let hand_strengths: Vec<u16> = player_hands.iter()
-                .map(|hand| get_nut_rank(&hand.to_vec(), &board).0)
+                .map(|hand| get_nut_rank(&hand.to_vec(), &board, false).0,)
                 .collect();
 
             let min_value = hand_strengths.iter().min().copied().unwrap_or(99);
