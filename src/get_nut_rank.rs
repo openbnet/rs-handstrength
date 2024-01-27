@@ -13,9 +13,9 @@ use crate::card::{Card, Suit};
 
 pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (u16, u8) {
     let can_str_flush = can_have_straight_flush(comcards);
-    println!("can_str_flush {:?}", can_str_flush);
+    // println!("can_str_flush {:?}", can_str_flush);
     let (hit, rank) = is_subset(hand, can_str_flush, relative); 
-    println!("str flush hit {:} rank {:}", hit, rank);
+    // println!("str flush hit {:} rank {:}", hit, rank);
     if hit {
         return (rank, 0);
     }
