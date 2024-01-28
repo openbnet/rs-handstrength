@@ -93,7 +93,7 @@ pub fn is_subset(hand: &Vec<Card>, combis: CanHaveCombis, relative: bool) -> (bo
 
     for (board, same_rank_hands) in combis {
         if relative {
-            println!("is subset relative board {:?} {:?}", board, hand);
+            // println!("is subset relative board {:?} {:?}", board, hand);
             // [Card { value: 13, suit: C }, Card { value: 6, suit: C }, Card { value: 5, suit: C }] 
             // [Card { value: 13, suit: H }, Card { value: 8, suit: C }, Card { value: 7, suit: C }, Card { value: 10, suit: C }]
             // we need to see if any of the board cards are in hand
