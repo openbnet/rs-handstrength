@@ -29,8 +29,8 @@ fn create_full_deck() -> Vec<Card> {
     deck
 }
 // Function to calculate the equity for each set of player cards
-fn calculate_equity(player_hands: &Vec<[Card; 4]>, flop: &[Card; 3], deck: Vec<Card>) -> Vec<f64> {
-    let mut equities = vec![0.0; player_hands.len()];
+fn calculate_equity(player_hands: &Vec<[Card; 4]>, flop: &[Card; 3], deck: Vec<Card>) -> Vec<u8> {
+    let mut equities = vec![0; player_hands.len()];
     let win_counts = Arc::new(Mutex::new(HashMap::new()));
     let tie_counts = Arc::new(Mutex::new(HashMap::new()));
 
@@ -89,16 +89,23 @@ fn calculate_equity(player_hands: &Vec<[Card; 4]>, flop: &[Card; 3], deck: Vec<C
 
     let win_counts = win_counts.lock().unwrap();  // Lock the mutex to access the HashMap
     let tie_counts = tie_counts.lock().unwrap();  // Lock the mutex to access the HashMap
-    
+    let mut curr_total: u8 = 0;
     for index in 0..player_hands.len() {
-        let wins = *win_counts.get(&index).unwrap_or(&0) as f64;
-        let ties = *tie_counts.get(&index).unwrap_or(&0) as f64;
-        equities[index] = (wins + ties) / total_outcomes as f64;
+        let wins = *win_counts.get(&index).unwrap_or(&0);
+        let ties = *tie_counts.get(&index).unwrap_or(&0);
+        // we work with u8 so 1 = 1% and 100 = 100%
+        let score = (((wins + ties) / total_outcomes) * 100) as u8;
+        if curr_total + score > 100 {
+            equities[index] = 100 - curr_total;
+        } else {
+            equities[index] = score;
+            curr_total += score;
+        }
     }
     
     equities
         
 }
-pub fn equity(hands: &Vec<[Card; 4]>, comm: &[Card; 3]) -> Vec<f64> {
+pub fn equity(hands: &Vec<[Card; 4]>, comm: &[Card; 3]) -> Vec<u8> {
     calculate_equity(hands,comm, get_remaining_cards(&hands, &comm)) 
 }
