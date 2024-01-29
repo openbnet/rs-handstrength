@@ -1,13 +1,15 @@
 use crate::get_nut_rank::get_nut_rank;
 use std::collections::HashMap;
 use crate::card::{Card, Suit};
-use std::collections::HashSet;
 use itertools::Itertools;
 use rayon::prelude::*;
 use std::sync::Mutex;
 use std::sync::Arc;
-// use std::simd::u16x8;
+use lazy_static::lazy_static;
 
+lazy_static! {
+    static ref CACHE: Mutex<HashMap<(Vec<[Card; 4]>, [Card; 3]), Vec<u8>>> = Mutex::new(HashMap::new());
+}
 pub fn get_remaining_cards(player_hands: &Vec<[Card; 4]>, board: &[Card; 3]) -> Vec<Card> {
     let mut allp_cards = player_hands.iter().flatten().cloned().collect::<Vec<Card>>();
     allp_cards.extend(board);
@@ -107,5 +109,18 @@ fn calculate_equity(player_hands: &Vec<[Card; 4]>, flop: &[Card; 3], deck: Vec<C
         
 }
 pub fn equity(hands: &Vec<[Card; 4]>, comm: &[Card; 3]) -> Vec<u8> {
-    calculate_equity(hands,comm, get_remaining_cards(&hands, &comm)) 
+    let mut cache = CACHE.lock().unwrap();
+
+    // Convert the inputs to a form that can be used as a key in the HashMap
+    let key = (hands.clone(), *comm);
+
+    // If the result is in the cache, return it
+    if let Some(result) = cache.get(&key) {
+        return result.clone();
+    }
+
+    // Otherwise, calculate the result and store it in the cache
+    let result = calculate_equity(hands, comm, get_remaining_cards(&hands, &comm));
+    cache.insert(key, result.clone());
+    result
 }

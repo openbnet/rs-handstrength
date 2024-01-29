@@ -10,4 +10,5 @@ license = "MIT"
 [dependencies]
 insta = "1.34.0"
 itertools = "0.12.0"
+lazy_static = "1.4.0"
 rayon = "1.8.1"
