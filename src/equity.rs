@@ -94,7 +94,7 @@ fn calculate_equity(player_hands: &Vec<[Card; 4]>, flop: &[Card; 3], deck: Vec<C
         let wins = *win_counts.get(&index).unwrap_or(&0);
         let ties = *tie_counts.get(&index).unwrap_or(&0);
         // we work with u8 so 1 = 1% and 100 = 100%
-        let score = (((wins + ties) / total_outcomes) * 100) as u8;
+        let score = (((wins + ties) as f32 / total_outcomes as f32) * 100 as f32).floor() as u8;
         if curr_total + score > 100 {
             equities[index] = 100 - curr_total;
         } else {
