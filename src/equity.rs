@@ -116,7 +116,7 @@ pub fn equity(hands: &Vec<[Card; 4]>, comm: &[Card; 3]) -> Vec<u8> {
 
     // If the result is in the cache, return it
     if let Some(result) = cache.get(&key) {
-        println!("equity cache hit {:?} result {:?}", key, result);
+        // println!("equity cache hit {:?} result {:?}", key, result);
         return result.clone();
     }
 
@@ -124,7 +124,7 @@ pub fn equity(hands: &Vec<[Card; 4]>, comm: &[Card; 3]) -> Vec<u8> {
     let cal_eq_start = std::time::Instant::now();
     let result = calculate_equity(hands, comm, get_remaining_cards(&hands, &comm));
     let cal_eq_end = std::time::Instant::now();
-    println!("equity cache miss {:?} result {:?} time {:?}", key, result, cal_eq_end.duration_since(cal_eq_start));
+    // println!("equity cache miss {:?} result {:?} time {:?}", key, result, cal_eq_end.duration_since(cal_eq_start));
     cache.insert(key, result.clone());
     result
 }
@@ -134,7 +134,7 @@ pub fn equity(hands: &Vec<[Card; 4]>, comm: &[Card; 3]) -> Vec<u8> {
 
 pub fn normalize_equity(equities: &[u8]) -> Vec<u8> {
     let total: u32 = equities.iter().map(|&equity| equity as u32).sum();
-    println!("normalize equity total {} equities {:?}", total, equities);
+    // println!("normalize equity total {} equities {:?}", total, equities);
 
     if total == 0 {
         return vec![0; equities.len()];
