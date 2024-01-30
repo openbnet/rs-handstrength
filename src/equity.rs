@@ -132,19 +132,15 @@ pub fn equity(hands: &Vec<[Card; 4]>, comm: &[Card; 3]) -> Vec<u8> {
 // normalize equity function to make sure the sum of all equities is 100
 // input would be like [81, 19, 9] 
 
-pub fn normalize_equity(equities: &Vec<u8>) -> Vec<u8> {
-    let mut total = 0;
-    let mut normalized_equities = vec![0; equities.len()];
-    for equity in equities {
-        total += equity;
-    }
-    
+pub fn normalize_equity(equities: &[u8]) -> Vec<u8> {
+    let total: u32 = equities.iter().map(|&equity| equity as u32).sum();
+    println!("normalize equity total {} equities {:?}", total, equities);
+
     if total == 0 {
-        panic!("total equity is 0")
+        return vec![0; equities.len()];
     }
-    
-    for (index, equity) in equities.iter().enumerate() {
-        normalized_equities[index] = ((equity * 100) as f32 / total as f32).floor() as u8;
-    }
-    normalized_equities
+
+    equities.iter()
+            .map(|&equity| ((equity as f32 * 100.0) / total as f32).floor() as u8)
+            .collect()
 }
