@@ -125,6 +125,7 @@ pub fn equity(hands: &Vec<[Card; 4]>, comm: &[Card; 3]) -> Vec<u8> {
     let result = calculate_equity(hands, comm, get_remaining_cards(&hands, &comm));
     let cal_eq_end = std::time::Instant::now();
     println!("equity cache miss {:?} result {:?} time {:?}", key, result, cal_eq_end.duration_since(cal_eq_start));
+    println!("equity res {:?}", result);
     cache.insert(key, result.clone());
     result
 }
@@ -143,8 +144,8 @@ pub fn normalize_equity(equities: &Vec<u8>) -> Vec<u8> {
         panic!("total equity is 0")
     }
     
-    for (index, equity) in equities.iter().enumerate() {
-        normalized_equities[index] = ((equity * 100) as f32 / total as f32).floor() as u8;
+    for (i, equity) in equities.iter().enumerate() {
+        normalized_equities[i] = equity * 100 / total;
     }
     normalized_equities
 }
