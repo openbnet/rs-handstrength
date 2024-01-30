@@ -138,6 +138,11 @@ pub fn normalize_equity(equities: &Vec<u8>) -> Vec<u8> {
     for equity in equities {
         total += equity;
     }
+    
+    if total == 0 {
+        panic!("total equity is 0")
+    }
+    
     for (index, equity) in equities.iter().enumerate() {
         normalized_equities[index] = ((equity * 100) as f32 / total as f32).floor() as u8;
     }
