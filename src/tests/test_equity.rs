@@ -18,7 +18,7 @@ mod tests {
 
         let hands = vec![hand1, hand2];
         let equities = equity(&hands, &community_cards);
-        println!("equities {:?}", equities);
+        // println!("equities {:?}", equities);
 
     }
     #[bench]
@@ -41,7 +41,7 @@ mod tests {
 
         let hands = vec![hand1, hand2];
         let equities = equity(&hands, &community_cards);
-        println!("equities {:?}", equities);
+        // println!("equities {:?}", equities);
 
     }
 }

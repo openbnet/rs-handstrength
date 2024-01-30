@@ -100,7 +100,7 @@ mod tests {
     fn test_pf_rank() {
         let hand = [Card { value: 7, suit: Suit::S }, Card { value: 1, suit: Suit::D }, Card { value: 13, suit: Suit::S}, Card {value: 12, suit: Suit::S}];
         let rank = pf_rank(hand);
-        println!("pf rank {:?}", rank);
+        // println!("pf rank {:?}", rank);
         assert_eq!(rank, 61);
     }
 }
