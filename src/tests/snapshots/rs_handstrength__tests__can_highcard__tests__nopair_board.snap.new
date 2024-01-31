@@ -1,0 +1,369 @@
+---
+source: src/tests/can_highcard.rs
+assertion_line: 17
+expression: combis
+---
+[
+    (
+        [
+            Card {
+                value: 1,
+                suit: H,
+            },
+            Card {
+                value: 8,
+                suit: D,
+            },
+            Card {
+                value: 10,
+                suit: C,
+            },
+            Card {
+                value: 2,
+                suit: S,
+            },
+            Card {
+                value: 3,
+                suit: S,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: A,
+                    },
+                    Card {
+                        value: 12,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: A,
+                    },
+                    Card {
+                        value: 11,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: A,
+                    },
+                    Card {
+                        value: 9,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: A,
+                    },
+                    Card {
+                        value: 7,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: A,
+                    },
+                    Card {
+                        value: 6,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: A,
+                    },
+                    Card {
+                        value: 5,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: A,
+                    },
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: A,
+                    },
+                    Card {
+                        value: 11,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: A,
+                    },
+                    Card {
+                        value: 9,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: A,
+                    },
+                    Card {
+                        value: 7,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: A,
+                    },
+                    Card {
+                        value: 6,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: A,
+                    },
+                    Card {
+                        value: 5,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: A,
+                    },
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 11,
+                        suit: A,
+                    },
+                    Card {
+                        value: 9,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 11,
+                        suit: A,
+                    },
+                    Card {
+                        value: 7,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 11,
+                        suit: A,
+                    },
+                    Card {
+                        value: 6,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 11,
+                        suit: A,
+                    },
+                    Card {
+                        value: 5,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 11,
+                        suit: A,
+                    },
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 9,
+                        suit: A,
+                    },
+                    Card {
+                        value: 7,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 9,
+                        suit: A,
+                    },
+                    Card {
+                        value: 6,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 9,
+                        suit: A,
+                    },
+                    Card {
+                        value: 5,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 9,
+                        suit: A,
+                    },
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 7,
+                        suit: A,
+                    },
+                    Card {
+                        value: 6,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 7,
+                        suit: A,
+                    },
+                    Card {
+                        value: 5,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 7,
+                        suit: A,
+                    },
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 6,
+                        suit: A,
+                    },
+                    Card {
+                        value: 5,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 6,
+                        suit: A,
+                    },
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 5,
+                        suit: A,
+                    },
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+]

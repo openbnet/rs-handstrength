@@ -3,7 +3,6 @@ use crate::sorting::get_same_value_map;
 use crate::can_libs::*;
 use itertools::Itertools;
 use std::collections::HashSet;
-use std::hash::Hash;
 // new implementation
 // first identify subsets of cards that can form a straight
 // then identify which cards can be added to the subset to form a straight
@@ -35,13 +34,10 @@ pub fn can_have_str(comcards: &Vec<Card>) -> CanHaveCombis {
     // we need to store the CardHand that we've used in PEval so far 
     // and then not include these CardHand in the inner loop
     let mut used_hands: HashSet<CardHand> = HashSet::new();
-    // we also need to store the board combis, however this time we need to see 
-    // if the new board combi is a subset of any of the stored board combis, we continue
-    // if not, we add it to the stored board combis
-    // let mut used_boards: HashSet<Vec<Card>> = HashSet::new();
+ 
     for start in [10, 1, 9, 8, 7, 6, 5, 4, 3, 2] {
         let straight_values = (start..start + 5).collect::<Vec<u8>>();
-        println!("straight_values {:?}", straight_values);
+        // println!("straight_values {:?}", straight_values);
         let board_candidates: Vec<Card> = unique_cards.iter()
             .filter(|&card| straight_values.contains(&card.value))
             .cloned()
@@ -53,8 +49,8 @@ pub fn can_have_str(comcards: &Vec<Card>) -> CanHaveCombis {
         if missing_values.len() > 2 {
             continue;
         }
-        println!("board_candidates {:?}", board_candidates);
-        println!("missing_values {:?}", missing_values);
+        // println!("board_candidates {:?}", board_candidates);
+        // println!("missing_values {:?}", missing_values);
         match missing_values.len() {
             2 => {
                 let hand: CardHand = vec![
@@ -93,7 +89,7 @@ pub fn can_have_str(comcards: &Vec<Card>) -> CanHaveCombis {
                             Some(hand)
                         }
                     }).collect::<SameRankHands>();
-                println!("combis {:?}", combis);
+                // println!("combis {:?}", combis);
                 can_have_combis.push((board_candidates, vec![combis]));
                 // return vec![(board_candidates, vec![vec![vec![
                 //     Card { value: missing_values[0], suit: Suit::A }
@@ -110,10 +106,10 @@ pub fn can_have_str(comcards: &Vec<Card>) -> CanHaveCombis {
                         hand
                     }).collect::<Vec<Card>>()
                 }).collect::<SameRankHands>();
-                println!("combis {:?}", combis);
+                // println!("combis {:?}", combis);
                 can_have_combis.push((board_candidates, vec![combis]));
             }
-            _ => panic!("imp me missing values len not 2")
+            _ => panic!("match isnt smart enough to know we continued on len 2 above")
         }
     }
     can_have_combis

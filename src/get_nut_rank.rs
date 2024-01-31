@@ -129,7 +129,7 @@ pub fn is_subset(hand: &Vec<Card>, combis: CanHaveCombis, relative: bool) -> (bo
         }
         for same_rank in same_rank_hands {
             if relative {
-                let filtered_same_rank: Vec<Vec<Card>> = same_rank.iter()
+                let filtered_same_rank: SameRankHands = same_rank.iter()
                     .filter(|&handmatcher| {
                         for hc in handmatcher {
                             if hc.suit == Suit::A {

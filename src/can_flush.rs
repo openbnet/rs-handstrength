@@ -1,7 +1,6 @@
 use crate::card::{Card, Suit};
 use crate::sorting::sort_cards;
 use crate::can_libs::*;
-use std::collections::HashMap;
 // does not care about straight flushes and will return a str flush match as a flush
 pub fn can_have_flush(comcards: &Vec<Card>) -> CanHaveCombis {
     if let Some(flush_suit) = can_flush(comcards) {

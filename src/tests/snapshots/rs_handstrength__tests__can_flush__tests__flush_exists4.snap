@@ -1,0 +1,456 @@
+---
+source: src/tests/can_flush.rs
+expression: flushes
+---
+[
+    (
+        [
+            Card {
+                value: 5,
+                suit: H,
+            },
+            Card {
+                value: 4,
+                suit: H,
+            },
+            Card {
+                value: 3,
+                suit: H,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 1,
+                        suit: H,
+                    },
+                    Card {
+                        value: 13,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 1,
+                        suit: H,
+                    },
+                    Card {
+                        value: 12,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 1,
+                        suit: H,
+                    },
+                    Card {
+                        value: 11,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 1,
+                        suit: H,
+                    },
+                    Card {
+                        value: 10,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 1,
+                        suit: H,
+                    },
+                    Card {
+                        value: 9,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 1,
+                        suit: H,
+                    },
+                    Card {
+                        value: 8,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 1,
+                        suit: H,
+                    },
+                    Card {
+                        value: 7,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 1,
+                        suit: H,
+                    },
+                    Card {
+                        value: 6,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: H,
+                    },
+                    Card {
+                        value: 12,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: H,
+                    },
+                    Card {
+                        value: 11,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: H,
+                    },
+                    Card {
+                        value: 10,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: H,
+                    },
+                    Card {
+                        value: 9,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: H,
+                    },
+                    Card {
+                        value: 8,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: H,
+                    },
+                    Card {
+                        value: 7,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 13,
+                        suit: H,
+                    },
+                    Card {
+                        value: 6,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: H,
+                    },
+                    Card {
+                        value: 11,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: H,
+                    },
+                    Card {
+                        value: 10,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: H,
+                    },
+                    Card {
+                        value: 9,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: H,
+                    },
+                    Card {
+                        value: 8,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: H,
+                    },
+                    Card {
+                        value: 7,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 12,
+                        suit: H,
+                    },
+                    Card {
+                        value: 6,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 11,
+                        suit: H,
+                    },
+                    Card {
+                        value: 10,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 11,
+                        suit: H,
+                    },
+                    Card {
+                        value: 9,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 11,
+                        suit: H,
+                    },
+                    Card {
+                        value: 8,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 11,
+                        suit: H,
+                    },
+                    Card {
+                        value: 7,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 11,
+                        suit: H,
+                    },
+                    Card {
+                        value: 6,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 10,
+                        suit: H,
+                    },
+                    Card {
+                        value: 9,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 10,
+                        suit: H,
+                    },
+                    Card {
+                        value: 8,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 10,
+                        suit: H,
+                    },
+                    Card {
+                        value: 7,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 10,
+                        suit: H,
+                    },
+                    Card {
+                        value: 6,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 9,
+                        suit: H,
+                    },
+                    Card {
+                        value: 8,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 9,
+                        suit: H,
+                    },
+                    Card {
+                        value: 7,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 9,
+                        suit: H,
+                    },
+                    Card {
+                        value: 6,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 8,
+                        suit: H,
+                    },
+                    Card {
+                        value: 7,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 8,
+                        suit: H,
+                    },
+                    Card {
+                        value: 6,
+                        suit: H,
+                    },
+                ],
+            ],
+            [
+                [
+                    Card {
+                        value: 7,
+                        suit: H,
+                    },
+                    Card {
+                        value: 6,
+                        suit: H,
+                    },
+                ],
+            ],
+        ],
+    ),
+]

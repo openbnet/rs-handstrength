@@ -1,7 +1,7 @@
 use crate::card::{Card, Suit};
 
 pub type CardHand = Vec<Card>;
-pub type SameRankHands = Vec<CardHand>;
+pub type SameRankHands = Vec<CardHand>; // Vec<Vec<Card>>
 pub type PEval = Vec<SameRankHands>; // Vec<Vec<Vec<Card>>>
 pub type CanHaveCombis = Vec<(Vec<Card>, PEval)>;
 pub fn can_flush(comcards: &Vec<Card>) -> Option<Suit> {

@@ -1,0 +1,20 @@
+---
+source: src/tests/can_have_strflush.rs
+expression: blocked
+---
+Ok(
+    [
+        [
+            [
+                Card {
+                    value: 4,
+                    suit: S,
+                },
+                Card {
+                    value: 2,
+                    suit: S,
+                },
+            ],
+        ],
+    ],
+)

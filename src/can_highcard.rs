@@ -1,7 +1,5 @@
 use crate::card::{Card, Suit};
-use crate::sorting::*;
 use itertools::Itertools;
-use std::collections::HashSet;
 use crate::can_libs::*;
 
 pub fn can_have_highcard(comcards: &Vec<Card>) -> CanHaveCombis {

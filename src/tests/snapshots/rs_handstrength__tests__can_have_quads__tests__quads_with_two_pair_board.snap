@@ -1,0 +1,58 @@
+---
+source: src/tests/can_have_quads.rs
+expression: quads_combinations
+---
+[
+    (
+        [
+            Card {
+                value: 10,
+                suit: S,
+            },
+            Card {
+                value: 10,
+                suit: H,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+    (
+        [
+            Card {
+                value: 8,
+                suit: D,
+            },
+            Card {
+                value: 8,
+                suit: S,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+]
