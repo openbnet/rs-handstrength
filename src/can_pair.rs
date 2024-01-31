@@ -40,8 +40,9 @@ pub fn can_have_pair(comcards: &Vec<Card>) -> CanHaveCombis {
         // pair on board
         // user cant have pair in hand or else its two pair
         // user cant hit anything on board or its two pair
+        let first_pair_value = pair_groups[0][0].value;
         let kickers = all_values.iter()
-            .filter(|&kv| !sorted_values.contains(kv))
+            .filter(|&kv| !sorted_values.contains(kv) )
             .cloned()
             .collect::<Vec<u8>>();
         println!("kickers {:?}", &kickers);
@@ -49,7 +50,7 @@ pub fn can_have_pair(comcards: &Vec<Card>) -> CanHaveCombis {
             .combinations(2)
             .map(|kicker| vec![vec![Card { value: kicker[0], suit: Suit::A }, Card {value: kicker[1], suit: Suit::A}]])
             .collect::<Vec<Vec<Vec<Card>>>>();
-        
+
         can_have_combis.push((sorted.clone(), hand_combinations));
     }
 
