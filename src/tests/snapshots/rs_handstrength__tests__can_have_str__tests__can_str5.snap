@@ -1,0 +1,194 @@
+---
+source: src/tests/can_have_str.rs
+expression: str_combis
+---
+[
+    (
+        [
+            Card {
+                value: 10,
+                suit: S,
+            },
+            Card {
+                value: 9,
+                suit: S,
+            },
+            Card {
+                value: 7,
+                suit: H,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                    Card {
+                        value: 11,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+    (
+        [
+            Card {
+                value: 10,
+                suit: S,
+            },
+            Card {
+                value: 9,
+                suit: S,
+            },
+            Card {
+                value: 7,
+                suit: H,
+            },
+            Card {
+                value: 6,
+                suit: C,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                    Card {
+                        value: 10,
+                        suit: A,
+                    },
+                ],
+                [
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                    Card {
+                        value: 9,
+                        suit: A,
+                    },
+                ],
+                [
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                    Card {
+                        value: 7,
+                        suit: A,
+                    },
+                ],
+                [
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                    Card {
+                        value: 6,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+    (
+        [
+            Card {
+                value: 9,
+                suit: S,
+            },
+            Card {
+                value: 7,
+                suit: H,
+            },
+            Card {
+                value: 6,
+                suit: C,
+            },
+            Card {
+                value: 5,
+                suit: C,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                    Card {
+                        value: 5,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+    (
+        [
+            Card {
+                value: 7,
+                suit: H,
+            },
+            Card {
+                value: 6,
+                suit: C,
+            },
+            Card {
+                value: 5,
+                suit: C,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                    Card {
+                        value: 8,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+    (
+        [
+            Card {
+                value: 7,
+                suit: H,
+            },
+            Card {
+                value: 6,
+                suit: C,
+            },
+            Card {
+                value: 5,
+                suit: C,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 3,
+                        suit: A,
+                    },
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+]

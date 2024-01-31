@@ -1,0 +1,36 @@
+---
+source: src/tests/can_have_str.rs
+expression: str_combis
+---
+[
+    (
+        [
+            Card {
+                value: 3,
+                suit: H,
+            },
+            Card {
+                value: 2,
+                suit: S,
+            },
+            Card {
+                value: 1,
+                suit: S,
+            },
+        ],
+        [
+            [
+                [
+                    Card {
+                        value: 4,
+                        suit: A,
+                    },
+                    Card {
+                        value: 5,
+                        suit: A,
+                    },
+                ],
+            ],
+        ],
+    ),
+]

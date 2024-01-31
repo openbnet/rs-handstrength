@@ -35,7 +35,7 @@ mod tests {
             Card { value: 7, suit: Suit::S },
             Card {value: 8, suit: Suit::S } 
         ];
-        let nr = get_nut_rank(&hand, &comcards);
+        let nr = get_nut_rank(&hand, &comcards, false);
         // println!("nr {:?}", nr);
         assert_debug_snapshot!(nr);
     }
@@ -69,7 +69,7 @@ mod tests {
             Card { value: 3, suit: Suit::S },
             Card {value: 10, suit: Suit::S } 
         ];
-        let nr = get_nut_rank(&hand, &v);
+        let nr = get_nut_rank(&hand, &v, false);
         // println!("nr {:?}", nr);
         assert_debug_snapshot!(nr); 
     }
@@ -101,7 +101,7 @@ mod tests {
             Card { value: 9, suit: Suit::C },
             Card {value: 10, suit: Suit::C } 
         ];
-        let nr = get_nut_rank(&hand, &comcards);
+        let nr = get_nut_rank(&hand, &comcards, false);
         // println!("nr {:?}", nr);
         assert_eq!(nr.0, 1);
         let hand = vec![
@@ -110,7 +110,7 @@ mod tests {
             Card { value: 9, suit: Suit::C },
             Card {value: 10, suit: Suit::C } 
         ];
-        let nr2 = get_nut_rank(&hand, &comcards);
+        let nr2 = get_nut_rank(&hand, &comcards, false);
         // println!("nr2 {:?}", nr2);
         assert_eq!(nr2.0, 0);
     }

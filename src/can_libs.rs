@@ -2,7 +2,7 @@ use crate::card::{Card, Suit};
 
 pub type CardHand = Vec<Card>;
 pub type SameRankHands = Vec<CardHand>;
-pub type PEval = Vec<SameRankHands>;
+pub type PEval = Vec<SameRankHands>; // Vec<Vec<Vec<Card>>>
 pub type CanHaveCombis = Vec<(Vec<Card>, PEval)>;
 pub fn can_flush(comcards: &Vec<Card>) -> Option<Suit> {
     let mut suit_counts = std::collections::HashMap::new();

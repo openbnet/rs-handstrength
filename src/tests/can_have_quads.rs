@@ -28,7 +28,7 @@ mod tests {
             Card { value: 2, suit: Suit::S },
             Card { value: 2, suit: Suit::C },
         ];
-        let nr = get_nut_rank(&hand, &cards);
+        let nr = get_nut_rank(&hand, &cards, false);
         // println!("nr {:?}", nr);
         assert_eq!(nr.0, 3);
     }
