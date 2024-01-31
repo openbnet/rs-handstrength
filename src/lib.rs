@@ -3,7 +3,7 @@ extern crate test;
 mod card;
 pub use card::{Card, Suit};
 mod sorting;
-pub use sorting::{get_same_value_map, sort_cards};
+pub use sorting::*;
 mod can_quads;
 pub use can_quads::can_have_quads;
 mod can_libs;
