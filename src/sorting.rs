@@ -24,3 +24,20 @@ pub fn sort_cards(cards: &Vec<Card>) -> Vec<Card> {
 
     sorted_cards
 }
+pub fn sort_cards4(cards: &[Card; 4]) -> [Card; 4] {
+    let mut sorted_cards = cards.clone();
+    sorted_cards.sort_by(|a, b| {
+        b.value.cmp(&a.value).then_with(|| a.suit.cmp(&b.suit))
+    });
+
+    sorted_cards
+}
+
+pub fn sort_cards3(cards: &[Card; 3]) -> [Card; 3] {
+    let mut sorted_cards = cards.clone();
+    sorted_cards.sort_by(|a, b| {
+        b.value.cmp(&a.value).then_with(|| a.suit.cmp(&b.suit))
+    });
+
+    sorted_cards
+}
