@@ -1,4 +1,7 @@
 
+use std::collections::HashMap;
+use std::sync::Mutex;
+
 use crate::can_strflush::*;
 use crate::can_quads::*;
 use crate::can_fullhouse::*;
@@ -10,6 +13,11 @@ use crate::can_pair::*;
 use crate::can_highcard::*;
 use crate::can_libs::*;
 use crate::card::{Card, Suit};
+use lazy_static::lazy_static;
+
+lazy_static! {
+    static ref CACHE: Mutex<HashMap<(Vec<Card>, Vec<Card>), (u16, NutRankType)>> = Mutex::new(HashMap::new());
+}
 #[derive(Debug,Clone, PartialEq, Eq)]
 pub enum NutRankType {
     StraightFlush,
@@ -23,6 +31,16 @@ pub enum NutRankType {
     HighCard
 }
 pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (u16, NutRankType) {
+    let mut cache = CACHE.lock().unwrap();
+    let key = (hand.clone(), comcards.clone());
+    if let Some((rank, nut_rank_type)) = cache.get(&key) {
+        return (*rank, nut_rank_type.clone());
+    }
+    let (rank, nut_rank_type) = get_nut_rank_uncached(hand, comcards, relative);
+    cache.insert((hand.clone(), comcards.clone()), (rank, nut_rank_type.clone()));
+    (rank, nut_rank_type)
+}
+pub fn get_nut_rank_uncached(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (u16, NutRankType) {
     let can_str_flush = can_have_straight_flush(comcards);
     // println!("can_str_flush {:?}", can_str_flush);
     let (hit, rank) = is_subset(hand, can_str_flush, relative); 
