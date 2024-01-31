@@ -10,6 +10,7 @@ use crate::can_pair::*;
 use crate::can_highcard::*;
 use crate::can_libs::*;
 use crate::card::{Card, Suit};
+#[derive(Debug,Clone, PartialEq, Eq)]
 pub enum NutRankType {
     StraightFlush,
     Quads,
