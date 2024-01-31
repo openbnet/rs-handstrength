@@ -14,6 +14,11 @@ pub fn has_pairs(comcards: &Vec<Card>) -> bool {
 pub fn can_have_twopairs(comcards: &Vec<Card>) -> CanHaveCombis {
     let mut can_have_combis: CanHaveCombis = Vec::new();
     let sorted = replace_ace_as_high(&sort_cards(comcards));
+    let grouped_cards = get_same_value_map(&sorted);
+    let has_trips_or_quads = grouped_cards.iter().any(|group| group.len() >= 3);
+    if has_trips_or_quads {
+        return can_have_combis;
+    }
     match has_pairs(&sorted) {
         false => {
             // println!("has pairs false {:?}", sorted);
@@ -37,30 +42,68 @@ pub fn can_have_twopairs(comcards: &Vec<Card>) -> CanHaveCombis {
         true => {
             // println!("has pairs true {:?}", sorted);
             let grouped_cards = get_same_value_map(&sorted);
-            println!("before grouped_cards {:?} {:?}", grouped_cards, sorted);
-            let pair_groups: Vec<Vec<Card>> = grouped_cards.iter().filter(|group| group.len() == 2).cloned().collect();
-            println!("grouped_cards {:?} pair_groups {:?}", grouped_cards, pair_groups);
-            let pair_values: Vec<u8> = pair_groups.iter().map(|group| group[0].value).collect();
-            let single_groups : Vec<Vec<Card>> = grouped_cards.iter().filter(|group| group.len() == 1).cloned().collect();
-            let all_values: Vec<u8> = (2..=14).rev().collect(); // All possible card values
-            let single_values: Vec<u8> = single_groups.iter().map(|group| group[0].value).collect();
-            // we can ignore 2nd pair group as it is the lower value
-            println!("all_values {:?}", all_values);
-            for i in (2..=14).into_iter().rev() {
+            let has_2pairs = grouped_cards.iter().filter(|group| group.len() == 2).count() == 2;
+            let sorted_values = sorted.iter().map(|card| card.value).collect::<Vec<u8>>();
+            let highest_pair = grouped_cards.iter().find(|group| group.len() == 2).unwrap()[0].value;
+            let all_values = [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
+            let not_used_values = all_values.iter().filter(|&v| !sorted_values.contains(v)).collect::<Vec<&u8>>();
+            
+            if has_2pairs {
+                // grouped_cards are sorted, highest pair is the first one
+
+                // when theres 2 pairs, there can only be one single value in a 5 card board
+                let single_value = grouped_cards.iter().filter(|group| group.len() == 1).next().unwrap()[0].value;
+                let kicker = Card {
+                    value: single_value,
+                    suit: Suit::A
+                };
+                println!("kicker {:?}", kicker);
+                println!("highest_pair {:?}", highest_pair);
+                
+                let mut p_eval: PEval = Vec::new();
+                
+                for i in all_values {
+                    if !sorted_values.contains(&i) {
+                        // push pair in hand to PEval
+                        p_eval.push(vec![vec![Card { value: i, suit: Suit::A },Card { value: i, suit: Suit::A }]]);
+                        
+
+                    } else {
+                        if i == single_value {
+                            let kickers = not_used_values.iter()
+                                .map(|&v| {
+                                    vec![vec![Card { value: *v, suit: Suit::A },Card { value: single_value, suit: Suit::A }]]
+                                }).collect::<PEval>();
+                            p_eval.extend(kickers);
+                        }
+                    }
+                } 
+                return vec![(sorted.clone(), p_eval)];
+
+            } else {
+                // has 1 pair,
+                let mut p_eval: PEval = Vec::new();
+                let single_values = grouped_cards.iter().filter(|group| group.len() == 1).map(|group| group[0].value).collect::<Vec<u8>>();
+                for i in all_values {
+                    if !sorted_values.contains(&i) {
+                        // push pair in hand to PEval
+                        p_eval.push(vec![vec![Card { value: i, suit: Suit::A },Card { value: i, suit: Suit::A }]]);
+
+                    } else {
+                        if single_values.contains(&i) {
+                            let kickers = not_used_values.iter()
+                                .map(|&v| {
+                                    vec![vec![Card { value: *v, suit: Suit::A },Card { value: i, suit: Suit::A }]]
+                                }).collect::<PEval>();
+                            p_eval.extend(kickers);
+                        } else {
+                            println!("ignoring i {:?} {:?}", i, single_values)
+                        }
+                    }
+                }
+                can_have_combis.push((sorted.clone(), p_eval));
 
             }
-            for single in &single_values {
-                let higher_singles: Vec<u8> = single_values.iter().filter(|v| v >= &single).cloned().collect();
-                let kickers: Vec<Vec<Vec<Card>>> = all_values.iter().filter(|&&v| !higher_singles.contains(&v) && !pair_values.contains(&v)).map(|&v| vec![vec![Card {value: v, suit: Suit::A}, Card {value: *single, suit: Suit::A}]]).collect();
-                can_have_combis.push((
-                    vec![pair_groups[0][0], pair_groups[0][1], Card { value: *single, suit: Suit::A}],
-                    kickers 
-                ))
-            }
-
-
-
-  
         }
     }
 
