@@ -10,14 +10,24 @@ use crate::can_pair::*;
 use crate::can_highcard::*;
 use crate::can_libs::*;
 use crate::card::{Card, Suit};
-
-pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (u16, u8) {
+pub enum NutRankType {
+    StraightFlush,
+    Quads,
+    FullHouse,
+    Flush,
+    Straight,
+    Trips,
+    TwoPair,
+    Pair,
+    HighCard
+}
+pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (u16, NutRankType) {
     let can_str_flush = can_have_straight_flush(comcards);
     // println!("can_str_flush {:?}", can_str_flush);
     let (hit, rank) = is_subset(hand, can_str_flush, relative); 
     // println!("str flush hit {:} rank {:}", hit, rank);
     if hit {
-        return (rank, 0);
+        return (rank, NutRankType::StraightFlush);
     }
     let mut score = rank.clone();
     let can_quads = can_have_quads(comcards);
@@ -25,7 +35,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (
     // println!("quads  {:} rank {:}", hitq, rankq);
     score += rankq; 
     if hitq {
-        return (score, 1);
+        return (score, NutRankType::Quads);
     }
     
 
@@ -33,8 +43,9 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (
     let (hitfh, rankfh) = is_subset(hand, can_fh, relative); 
     // println!("can_fh  {:} rank {:}", hitfh, rankfh);
     score += rankfh; 
+    
     if hitfh {
-        return (score, 2);
+        return (score, NutRankType::FullHouse);
     }
 
     let can_fl = can_have_flush(comcards);
@@ -42,7 +53,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (
     // println!("can_fl  {:} rank {:}", hitfl, rankfl);
     score += rankfl; 
     if hitfl {
-        return (score, 3);
+        return (score, NutRankType::Flush);
     }
 
 
@@ -51,7 +62,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (
     // println!("can_str  {:} rank {:}", hitstr, rankstr);
     score += rankstr; 
     if hitstr {
-        return (score, 4);
+        return (score, NutRankType::Straight);
     }
 
     let can_trips = can_have_trips(comcards);
@@ -59,7 +70,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (
     // println!("can_trips  {:} rank {:}", hittrips, ranktrips);
     score += ranktrips; 
     if hittrips {
-        return (score, 5);
+        return (score, NutRankType::Trips);
     }
 
     let can_2pair = can_have_twopairs(comcards);
@@ -67,7 +78,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (
     // println!("can_2pair  {:} rank {:}", hit2p, rank2p);
     score += rank2p; 
     if hit2p {
-        return (score, 6);
+        return (score, NutRankType::TwoPair);
     }
 
 
@@ -76,7 +87,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (
     // println!("can_pair  {:} rank {:}", hitp, rankp);
     score += rankp; 
     if hitp {
-        return (score, 7);
+        return (score, NutRankType::Pair);
     }
 
     let can_hc = can_have_highcard(comcards);
@@ -84,7 +95,7 @@ pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (
     // println!("can_hc  {:} rank {:}", hithc, rankhc);
     score += rankhc; 
 
-    return (score, 8);
+    return (score, NutRankType::HighCard);
     
     
 }
@@ -129,7 +140,7 @@ pub fn is_subset(hand: &Vec<Card>, combis: CanHaveCombis, relative: bool) -> (bo
         }
         for same_rank in same_rank_hands {
             if relative {
-                let filtered_same_rank: SameRankHands = same_rank.iter()
+                let filtered_same_rank: Vec<Vec<Card>> = same_rank.iter()
                     .filter(|&handmatcher| {
                         for hc in handmatcher {
                             if hc.suit == Suit::A {
