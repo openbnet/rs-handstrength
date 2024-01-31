@@ -1,0 +1,8 @@
+---
+source: src/tests/can_have_strflush.rs
+expression: nr
+---
+(
+    0,
+    0,
+)

@@ -1,6 +1,5 @@
 ---
 source: src/tests/can_highcard.rs
-assertion_line: 17
 expression: combis
 ---
 [

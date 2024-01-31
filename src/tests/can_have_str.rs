@@ -6,7 +6,7 @@ mod tests {
     #[test]
     fn cannot_str() {
         let cards = vec![
-            Card { value: 1, suit: Suit::S },
+            Card { value: 2, suit: Suit::S },
             Card { value: 10, suit: Suit::S },
             Card { value: 11, suit: Suit::H },
             Card { value: 10, suit: Suit::D },
