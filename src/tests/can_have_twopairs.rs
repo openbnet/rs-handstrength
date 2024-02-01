@@ -26,7 +26,7 @@ mod tests {
             Card { value: 3, suit: Suit::S },
         ];
         let combis = can_have_twopairs(&cards);
-        println!("combis {:?}", combis);
+        // println!("combis {:?}", combis);
         assert_debug_snapshot!(combis);
     }
     #[test]

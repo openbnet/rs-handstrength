@@ -57,8 +57,8 @@ pub fn can_have_twopairs(comcards: &Vec<Card>) -> CanHaveCombis {
                     value: single_value,
                     suit: Suit::A
                 };
-                println!("kicker {:?}", kicker);
-                println!("highest_pair {:?}", highest_pair);
+                // println!("kicker {:?}", kicker);
+                // println!("highest_pair {:?}", highest_pair);
                 
                 let mut p_eval: PEval = Vec::new();
                 
@@ -97,7 +97,7 @@ pub fn can_have_twopairs(comcards: &Vec<Card>) -> CanHaveCombis {
                                 }).collect::<PEval>();
                             p_eval.extend(kickers);
                         } else {
-                            println!("ignoring i {:?} {:?}", i, single_values)
+                            // println!("ignoring i {:?} {:?}", i, single_values)
                         }
                     }
                 }

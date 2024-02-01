@@ -26,7 +26,7 @@ pub fn can_have_str(comcards: &Vec<Card>) -> CanHaveCombis {
         // add all aces to the front of unique_cards
         unique_cards.splice(0..0, aces);
         
-        println!("unique_cards after extend{:?}", unique_cards);
+        // println!("unique_cards after extend{:?}", unique_cards);
         // find subset of cards that can form a straight
 
     } 
