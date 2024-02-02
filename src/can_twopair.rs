@@ -52,11 +52,7 @@ pub fn can_have_twopairs(comcards: &Vec<Card>) -> CanHaveCombis {
                 // grouped_cards are sorted, highest pair is the first one
 
                 // when theres 2 pairs, there can only be one single value in a 5 card board
-                let single_value = grouped_cards.iter().filter(|group| group.len() == 1).next().unwrap()[0].value;
-                let kicker = Card {
-                    value: single_value,
-                    suit: Suit::A
-                };
+                let single_value = grouped_cards.iter().filter(|group| group.len() == 1).next();
                 // println!("kicker {:?}", kicker);
                 // println!("highest_pair {:?}", highest_pair);
                 
@@ -69,12 +65,15 @@ pub fn can_have_twopairs(comcards: &Vec<Card>) -> CanHaveCombis {
                         
 
                     } else {
-                        if i == single_value {
-                            let kickers = not_used_values.iter()
-                                .map(|&v| {
-                                    vec![vec![Card { value: *v, suit: Suit::A },Card { value: single_value, suit: Suit::A }]]
-                                }).collect::<PEval>();
-                            p_eval.extend(kickers);
+                       // hit the single_value if it exists with unused values
+                        if let Some(single_value) = single_value {
+                            if single_value[0].value == i {
+                                let kickers = not_used_values.iter()
+                                    .map(|&v| {
+                                        vec![vec![Card { value: *v, suit: Suit::A },Card { value: i, suit: Suit::A }]]
+                                    }).collect::<PEval>();
+                                p_eval.extend(kickers);
+                            } 
                         }
                     }
                 } 
