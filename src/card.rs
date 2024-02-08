@@ -1,4 +1,6 @@
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+use serde::{Deserialize, Serialize};
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Deserialize, Serialize)]
 pub enum Suit {
     S,
     H,
@@ -14,7 +16,7 @@ pub enum Suit {
 
 }
 
-#[derive(Clone, Copy, Debug, Eq, Hash,PartialOrd, PartialEq, Ord)]
+#[derive(Clone, Copy, Debug, Eq, Hash,PartialOrd, PartialEq, Ord, Deserialize, Serialize)]
 pub struct Card {
     pub value: u8,
     pub suit: Suit,
@@ -42,7 +44,7 @@ impl fmt::Display for Suit {
 
 impl fmt::Display for Card {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{} of {}", self.value, self.suit)
+        write!(f, "{}{}", self.value, self.suit)
     }
 }
 impl Default for Card {
