@@ -4,7 +4,10 @@ pub enum Suit {
     H,
     C,
     D,
-    A // any *
+    A, // any *
+    E, // Equals
+    X, // Except
+
 }
 
 #[derive(Clone, Copy, Debug, Eq, Hash,PartialOrd, PartialEq, Ord)]
@@ -22,6 +25,8 @@ impl fmt::Display for Suit {
             Suit::H => "h",
             Suit::S => "s",
             Suit::A => "*",
+            Suit::E => "=",
+            Suit::X => "!"
         };
         write!(f, "{}", suit)
     }

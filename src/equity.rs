@@ -18,7 +18,7 @@ pub fn get_remaining_cards(player_hands: &Vec<[Card; 4]>, board: &[Card; 3]) -> 
     remaining
 }
 
-fn create_full_deck() -> Vec<Card> {
+pub fn create_full_deck() -> Vec<Card> {
     let suits = vec![Suit::S, Suit::H, Suit::C, Suit::D];
     let mut deck = Vec::new();
 
