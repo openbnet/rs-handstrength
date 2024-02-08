@@ -5,8 +5,12 @@ pub enum Suit {
     C,
     D,
     A, // any *
-    E, // Equals
-    X, // Except
+    E, // TrainerSuit first suit in cards
+    F, //2nd suit
+    G, // 3rd suit
+    X, // Except E - 3 possible
+    Y, // Except E and F - 2 possible
+    Z, // Except E, F, and G -4th suit
 
 }
 
@@ -25,8 +29,12 @@ impl fmt::Display for Suit {
             Suit::H => "h",
             Suit::S => "s",
             Suit::A => "*",
-            Suit::E => "=",
-            Suit::X => "!"
+            Suit::E => "e",
+            Suit::F => "f",
+            Suit::G => "g",
+            Suit::X => "x",
+            Suit::Y => "y",
+            Suit::Z => "z",
         };
         write!(f, "{}", suit)
     }
