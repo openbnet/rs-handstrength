@@ -32,12 +32,14 @@ pub enum NutRankType {
 }
 pub fn get_nut_rank(hand: &Vec<Card>, comcards: &Vec<Card>, relative: bool) -> (u16, NutRankType) {
     // get_nut_rank_uncached(hand, comcards, relative)
-    let mut cache = CACHE.lock().unwrap();
+    let cache = CACHE.lock().unwrap();
     let key = (hand.clone(), comcards.clone());
     if let Some((rank, nut_rank_type)) = cache.get(&key) {
         return (*rank, nut_rank_type.clone());
     }
+    drop(cache);
     let (rank, nut_rank_type) = get_nut_rank_uncached(hand, comcards, relative);
+    let mut cache = CACHE.lock().unwrap();
     cache.insert((hand.clone(), comcards.clone()), (rank, nut_rank_type.clone()));
     (rank, nut_rank_type)
 }
