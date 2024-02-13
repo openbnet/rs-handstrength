@@ -18,6 +18,11 @@ use lazy_static::lazy_static;
 lazy_static! {
     static ref CACHE: Mutex<HashMap<(Vec<Card>, Vec<Card>), (u16, NutRankType)>> = Mutex::new(HashMap::new());
 }
+// fn to clear cache
+pub fn clear_nr_cache() {
+    let mut cache = CACHE.lock().unwrap();
+    cache.clear();
+}
 #[derive(Debug,Clone, PartialEq, Eq)]
 pub enum NutRankType {
     StraightFlush,

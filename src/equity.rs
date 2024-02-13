@@ -10,6 +10,12 @@ use lazy_static::lazy_static;
 lazy_static! {
     static ref CACHE: Mutex<HashMap<(Vec<[Card; 4]>, [Card; 3]), Vec<u8>>> = Mutex::new(HashMap::new());
 }
+
+// fn to clear cache
+pub fn clear_equity_cache() {
+    let mut cache = CACHE.lock().unwrap();
+    cache.clear();
+}
 pub fn get_remaining_cards(player_hands: &Vec<[Card; 4]>, board: &[Card; 3]) -> Vec<Card> {
     let mut allp_cards = player_hands.iter().flatten().cloned().collect::<Vec<Card>>();
     allp_cards.extend(board);
