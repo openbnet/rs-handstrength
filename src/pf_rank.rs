@@ -72,10 +72,10 @@ fn calculate_difference(v1: u8, v2: u8) -> u8 {
         0
     } else 
     if [1, 14].contains(&v1) {
-        ((1.0 - v2 as f16).abs()).min(((14.0 - v2 as f16).abs()) as u8)
+        ((1.0 - v2 as f32).abs()).min(((14.0 - v2 as f32).abs()) as u8)
     }
     else if [1, 14].contains(&v2) {
-        ((1.0 - v1 as f16).abs()).min(((14.0 - v1 as f16).abs()) as u8)
+        ((1.0 - v1 as f32).abs()).min(((14.0 - v1 as f32).abs()) as u8)
     }
     else {
         (v1 as i32 - v2 as i32).abs() as u8
