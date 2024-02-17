@@ -22,8 +22,7 @@ pub fn pf_rank(cards: [Card; 4]) -> u16 {
     // process values
     for v in &value_obj {
         let value = v.0;
-        let cards = v.1;
-        let multiplier: f32 = match v.len() {
+        let multiplier: f32 = match v.1.len() {
             3 => 0.5,
             2 => 2.5,
             _ => 0 as f32
