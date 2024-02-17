@@ -83,12 +83,11 @@ fn calculate_difference(v1: u8, v2: u8) -> u8 {
 }
 
 fn update_total_for_straightness(total: f32, value: u8, diff: u8) -> f32 {
-    let adjusted_value = adjust_card_value(value) as f32;
     let multiplier = match diff {
-        1 => adjusted_value / 1.5,
-        2 => adjusted_value / 2.5,
-        3 => adjusted_value / 3.5,
-        4 => adjusted_value / 5.0,
+        1 => value / 1.5,
+        2 => value / 2.5,
+        3 => value / 3.5,
+        4 => value / 5,
         _ => 0.0,
     };
     total + multiplier
