@@ -10,9 +10,8 @@ pub fn pf_rank(cards: [Card; 4]) -> u16 {
     for s in suit_obj.values() {
         for card in s {
             let card_v = card.value;
-            let multiplier: f32 = match cards.len() {
-                4 => 1.2,
-                3 => 1.6,
+            let multiplier: f32 = match s.len() {
+                3 => 0.5,
                 2 => 2 as f32,
                 _ => 0 as f32
             };
@@ -24,8 +23,8 @@ pub fn pf_rank(cards: [Card; 4]) -> u16 {
     for v in &value_obj {
         let value = v.0;
         let cards = v.1;
-        let multiplier: f32 = match cards.len() {
-            3 => 1.2,
+        let multiplier: f32 = match v.len() {
+            3 => 0.5,
             2 => 2.5,
             _ => 0 as f32
         };
