@@ -56,7 +56,7 @@ fn process_card_for_straightness(value: u8, other_cards: &[&Card], mut total: f3
     let mut used_values = Vec::new();
 
     for &card in other_cards {
-        let card_value = adjust_card_value(card.value);
+        let card_value = card.value;
 
         if !used_values.contains(&card_value) {
             used_values.push(card_value);
@@ -68,14 +68,17 @@ fn process_card_for_straightness(value: u8, other_cards: &[&Card], mut total: f3
 }
 
 fn calculate_difference(v1: u8, v2: u8) -> u8 {
-    let adjusted_v1 = adjust_card_value(v1);
-    let adjusted_v2 = adjust_card_value(v2);
-    let diff = (adjusted_v1 as i32 - adjusted_v2 as i32).abs() as u8;
-
-    if [1, 14].contains(&v1) || [1, 14].contains(&v2) {
-        diff.min((1i32 - adjusted_v2 as i32).abs() as u8)
-    } else {
-        diff
+    if [1, 14].contains(&v1) && [1, 14].contains(&v2) {
+        0
+    } else 
+    if [1, 14].contains(&v1) {
+        ((1.0 - v2 as f16).abs()).min(((14.0 - v2 as f16).abs()) as u8)
+    }
+    else if [1, 14].contains(&v2) {
+        ((1.0 - v1 as f16).abs()).min(((14.0 - v1 as f16).abs()) as u8)
+    }
+    else {
+        (v1 as i32 - v2 as i32).abs() as u8
     }
 }
 
