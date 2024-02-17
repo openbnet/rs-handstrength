@@ -84,10 +84,10 @@ fn calculate_difference(v1: u8, v2: u8) -> u8 {
 
 fn update_total_for_straightness(total: f32, value: u8, diff: u8) -> f32 {
     let multiplier = match diff {
-        1 => value as f32 / 5.0,
-        2 => value as f32 / 10.0,
-        3 => value as f32 / 20.0,
-        4 => value as f32 / 50.0,
+        1 => value as f32 / 10.0,
+        2 => value as f32 / 20.0,
+        3 => value as f32 / 50.0,
+        4 => value as f32 / 100.0,
         _ => 0.0,
     };
     total + multiplier
